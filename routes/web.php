@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +31,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/menu/top', [MenuController::class, 'top'])-> name('top');
+Route::get('/user/create', [UserController::class, 'create']) -> name('usercreate');
+Route::post('/user/edituser', [UserController::class, 'store']) ->name('userstore');
+
+
