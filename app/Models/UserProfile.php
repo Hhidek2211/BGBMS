@@ -16,4 +16,12 @@ class UserProfile extends Model
     public function band_profiles(){
         return $this -> belongsToMany(band_profile::class);
     }
+    
+    protected $fillable = [
+        'name',
+        'grade',
+        'introduction',
+        'instrument',
+        'user_id',
+        ];
 }
