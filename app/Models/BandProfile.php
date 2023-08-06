@@ -10,6 +10,11 @@ class BandProfile extends Model
     use HasFactory;
     
     public function user_profiles(){
-        return $this -> belongsToMany(user_profile::class);
+        return $this -> belongsToMany(UserProfile::class);
     }
+    
+    protected $fillable = [
+        'name',
+        'introduce',
+        ];
 }
