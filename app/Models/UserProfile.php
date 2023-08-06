@@ -14,7 +14,7 @@ class UserProfile extends Model
     }
     
     public function band_profiles(){
-        return $this -> belongsToMany(band_profile::class);
+        return $this -> belongsToMany(BandProfile::class);
     }
     
     protected $fillable = [

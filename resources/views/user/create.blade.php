@@ -19,7 +19,7 @@
             
             <div class="grade">
              <h2>学年</h2>
-             <input type="text" name="edituser[grade]">
+             <input type="number" name="edituser[grade]">
             </div>
             
             <div class="introduction">
