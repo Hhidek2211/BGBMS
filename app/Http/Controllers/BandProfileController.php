@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\UserProfile;
 use App\Models\BandProfile;
+use App\Http\Requests\BandRequest;
 
 class BandProfileController extends Controller
 {
@@ -12,7 +13,7 @@ class BandProfileController extends Controller
         return view("band.create")->with(['users'=>$user ->get()]);
     }
     
-    public function store(Request $request, BandProfile $prof){
+    public function store(BandRequest $request, BandProfile $prof){
         $input_prof = $request['editband'];
         $input_member = $request->bandmember;
         
