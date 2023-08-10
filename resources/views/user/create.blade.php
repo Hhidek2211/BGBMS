@@ -12,19 +12,36 @@
        <p1>ユーザープロフィール作成</p1>
        <form action="/user/edituser" method="POST" >
         @csrf
+        <nobr>
             <div class="name">
              <h2>ユーザー名</h2>
-             <input type="text" name="edituser[name]">
+             <input type="text" name="edituser[name]" value="{{ old('edituser.name') }}">
+             <p class="error_name" style="color:red">{{ $errors->first('edituser.name') }}</p>
             </div>
             
             <div class="grade">
              <h2>学年</h2>
-             <input type="number" name="edituser[grade]">
+             <input type="number" name="edituser[grade]" value="{{ old('edituser.grade') }}">
+             <p class="error_grade" style="color:red">{{ $errors->first('edituser.grade') }}</p>
+            </div>
+        </nobr>
+        
+            <div class="instrument">
+                <h2>楽器</h2>
+                @foreach ($instruments as $instrument)
+                <label>
+                <input type="checkbox"  value="{{ $instrument->id }}" name="instrument[]">
+                    {{ $instrument->name }}
+                </input>
+                </label>
+                @endforeach
+                
             </div>
             
             <div class="introduction">
              <h2>自己紹介</h2>
-             <textarea type="text" name="edituser[introduction]"></textarea>
+             <textarea type="text" name="edituser[introduction]" value="{{ old('edituser.introduction') }}"></textarea>
+             <p class="error_introduction" style="color:red">{{ $errors->first('edituser.introduction') }}</p>
             </div>
             
             <div class="id">

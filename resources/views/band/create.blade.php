@@ -14,7 +14,8 @@
         @csrf
             <div class="name">
              <h2>バンド名</h2>
-             <input type="text" name="editband[name]">
+             <input type="text" name="editband[name]" value="{{ old('editband.name') }}">
+             <p class="error_name" style="color:red">{{ $errors->first('editband.name') }}</p>
             </div>
             
             <div class="member">
@@ -29,11 +30,13 @@
                     @endforeach
                 </select></p>
             @endfor
+                <p class="error_member" style="color:red">{{ $errors->first('bandmember') }}</p>
             </div>
             
             <div class="introduction">
              <h2>自己紹介</h2>
-             <textarea type="text" name="edituser[introduction]"></textarea>
+             <textarea type="text" name="editband[introduction]" value="{{ old('editband.introduction') }}"></textarea>
+             <p class="error_introduction" style="color:red">{{ $errors->first('editband.introduction') }}</p>
             </div>
             
             <input type="submit" value="store">
