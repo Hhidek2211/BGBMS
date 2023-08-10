@@ -25,6 +25,9 @@ class BandProfileController extends Controller
         $prof->fill($input_prof)->save();
         $prof->user_profiles()->attach($input_member);
         return redirect("/menu/top");
-        
+    }
+    
+    public function list(){
+        return view("band.list");
     }
 }

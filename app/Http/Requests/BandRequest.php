@@ -20,7 +20,7 @@ class BandRequest extends FormRequest
     public function rules()
     {
         return [
-            'editband.name' => 'required|string|max:20|unique',
+            'editband.name' => 'required|string|max:20|unique:band_profiles,name',
             'editband.introduction' => 'required|string|max:200',
             'bandmember' => 'required',
         ];

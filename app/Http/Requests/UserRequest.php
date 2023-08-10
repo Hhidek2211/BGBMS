@@ -28,6 +28,7 @@ class UserRequest extends FormRequest
             'edituser.grade' => 'required|integer|min:1',
             'edituser.introduction' => 'required|string|max:200',
             'instrument' => 'required',
+            'edituser.user_id' => 'unique:user_profiles,user_id'
         ];
     }
 }
