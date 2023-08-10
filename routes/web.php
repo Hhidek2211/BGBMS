@@ -40,4 +40,5 @@ Route::post('/user/edituser', [UserController::class, 'store']) ->name('userstor
 Route::controller(BandProfileController::class)->group(function(){
    Route::get('/band/create', 'create')->name('bandcreate');
    Route::post('/band/editband', 'store')->name('bandstore');
+   Route::get('/band/list', 'list')->name('list');
 });

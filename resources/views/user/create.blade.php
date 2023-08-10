@@ -46,6 +46,7 @@
             
             <div class="id">
                 <input type="hidden" name="edituser[user_id]" value="{{$user->id}}" >
+                <p class="error_id" style="color:red">{{ $errors->first('edituser.user_id') }}</p>
             </div>
             
             <input type="submit" value="store">
