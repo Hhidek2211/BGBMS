@@ -14,7 +14,7 @@ class UserProfile extends Model
     }
     
     public function band_profiles(){
-        return $this -> belongsToMany(BandProfile::class);
+        return $this -> belongsToMany(BandProfile::class)->withPivot('user_profile_id');
     }
     
     public function instruments(){

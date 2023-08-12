@@ -36,9 +36,10 @@ require __DIR__.'/auth.php';
 Route::get('/menu/top', [MenuController::class, 'top'])-> name('top');
 Route::get('/user/create', [UserController::class, 'create']) -> name('usercreate');
 Route::post('/user/edituser', [UserController::class, 'store']) ->name('userstore');
+Route::get('/band/list', [UserController::class,'bandlist'])->name('bandlist');
 
 Route::controller(BandProfileController::class)->group(function(){
    Route::get('/band/create', 'create')->name('bandcreate');
    Route::post('/band/editband', 'store')->name('bandstore');
-   Route::get('/band/list', 'list')->name('list');
+   //Route::get('/band/list', 'list')->name('list');
 });

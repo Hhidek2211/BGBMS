@@ -16,7 +16,7 @@ class BandProfileController extends Controller
     public function store(BandRequest $request, BandProfile $prof){
         $input_prof = $request['editband'];
         $input_member = $request->bandmember;
-        
+        //dd($input_prof);
         foreach($input_member as $key => $value)   //未入力値の削除
             if($value == ""){
                 unset($input_member[$key]);
@@ -27,7 +27,4 @@ class BandProfileController extends Controller
         return redirect("/menu/top");
     }
     
-    public function list(){
-        return view("band.list");
-    }
 }
