@@ -28,8 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::table('user_profiles', function (Blueprint $table) {
-            $table -> string('name') ->nullable(false) -> change();
-            $table -> integer('grade') -> nullable(false) -> change();
+            //$table -> string('name') ->nullable(false) -> change();
+            //$table -> integer('grade') -> nullable(false) -> change();
         });
     }
 };

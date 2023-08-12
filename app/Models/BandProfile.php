@@ -9,12 +9,18 @@ class BandProfile extends Model
 {
     use HasFactory;
     
-    public function user_profiles(){
-        return $this -> belongsToMany(UserProfile::class);
+    public function user_profiles(){        //バンド作成関連
+        return $this -> belongsToMany(UserProfile::class)->withPivot('user_profile_id');
     }
     
     protected $fillable = [
         'name',
-        'introduce',
+        'introduction',
         ];
+        
+    public function getuserband($user){
+        return $this::with(['user_profiles' => function ($query) {
+            $query->where('id', $user);
+        }])->get(); 
+    }
 }
