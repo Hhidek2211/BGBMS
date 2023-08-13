@@ -7,6 +7,7 @@ use App\Models\UserProfile;
 use App\Models\BandProfile;
 use App\Models\Instrument;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -21,6 +22,24 @@ class UserController extends Controller
         
         $prof -> fill($input_user) -> save();
         $prof -> instruments() -> attach($input_instrument);
+        return redirect('/menu/top');
+    }
+    
+    public function edit(UserProfile $user, Instrument $instrument) {
+        $user->GetUserInfo();
+        return view('user.edit')->with(['user'=>$user, 'instruments'=>$instrument -> get()]);
+    }
+    
+    public function update(UserUpdateRequest $request, UserProfile $user) {
+        $update_user = $request['edituser'];
+        $update_instrument = $request['instrument'];
+        
+        //dd($user);
+        
+        $user -> fill($update_user) -> save();
+        //dd($prof);
+        $user -> instruments() -> detach();
+        $user -> instruments() -> attach($update_instrument);
         return redirect('/menu/top');
     }
     

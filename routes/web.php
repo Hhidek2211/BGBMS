@@ -34,12 +34,16 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/menu/top', [MenuController::class, 'top'])-> name('top');
-Route::get('/user/create', [UserController::class, 'create']) -> name('usercreate');
-Route::post('/user/edituser', [UserController::class, 'store']) ->name('userstore');
-Route::get('/band/list', [UserController::class,'bandlist'])->name('bandlist');
+
+Route::controller(UserController::class)->group(function(){
+    Route::get('/user/create', 'create') -> name('usercreate');
+    Route::post('/user/createuser', 'store') ->name('userstore');
+    Route::get('/user/{user}/edit', 'edit') ->name('useredit');
+    Route::put('/user/{user}', 'update')->name('userupdate');
+});
 
 Route::controller(BandProfileController::class)->group(function(){
    Route::get('/band/create', 'create')->name('bandcreate');
    Route::post('/band/editband', 'store')->name('bandstore');
-   //Route::get('/band/list', 'list')->name('list');
+   Route::get('/band/list', 'list')->name('list');
 });
