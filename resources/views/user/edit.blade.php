@@ -9,19 +9,20 @@
     </head>
     
     <body>
-       <p1>ユーザープロフィール作成</p1>
-       <form action="/user/createuser" method="POST" >
+        <p1>ユーザープロフィール編集</p1>
+       <form action="/user/{{ $user->id }}" method="POST" >
         @csrf
+        @method('PUT')
         <nobr>
             <div class="name">
              <h2>ユーザー名</h2>
-             <input type="text" name="edituser[name]" value="{{ old('edituser.name') }}">
+             <input type="text" name="edituser[name]" value="{{ $user->name }}">
              <p class="error_name" style="color:red">{{ $errors->first('edituser.name') }}</p>
             </div>
             
             <div class="grade">
              <h2>学年</h2>
-             <input type="number" name="edituser[grade]" value="{{ old('edituser.grade') }}">
+             <input type="number" name="edituser[grade]" value="{{ $user->grade }}">
              <p class="error_grade" style="color:red">{{ $errors->first('edituser.grade') }}</p>
             </div>
         </nobr>
@@ -40,7 +41,7 @@
             
             <div class="introduction">
              <h2>自己紹介</h2>
-             <textarea type="text" name="edituser[introduction]" value="{{ old('edituser.introduction') }}"></textarea>
+             <input type="text" name="edituser[introduction]" value="{{ $user->introduction }}">
              <p class="error_introduction" style="color:red">{{ $errors->first('edituser.introduction') }}</p>
             </div>
             
@@ -49,9 +50,8 @@
                 <p class="error_id" style="color:red">{{ $errors->first('edituser.user_id') }}</p>
             </div>
             
-            <input type="submit" value="store">
+            <input type="submit" value="update">
        </form>
-       
     </body>
 </html>
 

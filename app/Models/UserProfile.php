@@ -14,11 +14,15 @@ class UserProfile extends Model
     }
     
     public function band_profiles(){
-        return $this -> belongsToMany(BandProfile::class)->withPivot('user_profile_id');
+        return $this -> belongsToMany(BandProfile::class);
     }
     
     public function instruments(){
         return $this -> belongsToMany(Instrument::class);
+    }
+    
+    public function GetUserInfo(){
+        return $this -> where('user_id', \Auth::user()->id)->first();
     }
     
     protected $fillable = [
