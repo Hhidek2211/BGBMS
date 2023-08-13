@@ -11,8 +11,8 @@
     <body>
         <div class="userband">
          <h1>あなたのバンド</h1>
-         @foreach($userbands->band_profiles as $userband)
-            <h3 class="bandname">{{ $userband->name }}</h3>
+         @foreach($userbands->band_profiles as $band)
+            <a class="bandname" href="/band/{{ $band->id }}">{{ $band->name }}</h3><br>
          @endforeach
         </div>
     </body>
