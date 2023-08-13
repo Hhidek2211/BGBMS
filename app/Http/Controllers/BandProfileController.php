@@ -27,4 +27,8 @@ class BandProfileController extends Controller
         return redirect("/menu/top");
     }
     
+    public function bandpage(BandProfile $band) {
+        return view("band.bandpage")->with([ 'band'=>$band ]);
+    }
+    
 }
