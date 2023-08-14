@@ -26,16 +26,18 @@ class UserController extends Controller
     }
     
     public function edit(UserProfile $user, Instrument $instrument) {
-        $user->GetUserInfo();
-        return view('user.edit')->with(['user'=>$user, 'instruments'=>$instrument -> get()]);
+        //dd($userid);
+        $inst = UserProfile::find($user->id)-> instruments()-> get();
+        //dd(gettype($inst));
+        $instid = array_column($inst->toArray(),'id');
+        dd($instid);
+        return view('user.edit')->with(['user'=>$user, 'instruments'=>$instrument->get(), 'inst'=>$inst]);
     }
     
     public function update(UserUpdateRequest $request, UserProfile $user) {
         $update_user = $request['edituser'];
         $update_instrument = $request['instrument'];
-        
         //dd($user);
-        
         $user -> fill($update_user) -> save();
         //dd($prof);
         $user -> instruments() -> detach();

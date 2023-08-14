@@ -30,11 +30,30 @@
             <div class="instrument">
                 <h2>楽器</h2>
                 @foreach ($instruments as $instrument)
-                <label>
-                <input type="checkbox"  value="{{ $instrument->id }}" name="instrument[]">
-                    {{ $instrument->name }}
-                </input>
-                </label>
+                {{--@php
+                dd($instrument, $user, $inst);
+                @endphp --}}
+                <lavel>
+                    @php
+                        $flag = 0
+                    @endphp
+                
+                        @foreach($inst as $instid)
+                            @if( $instrument->id == $instid->id )
+                                @php
+                                    $flag = 1
+                                @endphp
+                            @endif
+                        @endforeach
+                    
+                    @if ( $flag == 1)
+                    <input type="checkbox" value="{{ $instrument->id }}" name="instrument[]" checked>
+                            {{ $instrument->name }} 
+                    @else 
+                    <input type="checkbox" value="{{ $instrument->id }}" name="instrument[]">
+                            {{ $instrument->name}}
+                    @endif
+                </label>            
                 @endforeach
                 
             </div>
