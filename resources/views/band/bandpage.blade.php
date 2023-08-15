@@ -10,7 +10,7 @@
     
     <body>
       <h2>{{ $band->name }} のバンドメニュー</h2>
-      <p class="bandedit">バンドプロフィール編集</p>
+      <a href="/band/{{ $band-> id}}}/edit" class="bandedit">バンドプロフィール編集</p>
     </body>
 </html>
 

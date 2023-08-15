@@ -10,7 +10,7 @@
     
     <body>
         <p1>ユーザープロフィール編集</p1>
-       <form action="/user/{{ $user->id }}" method="POST" >
+       <form action="/user/{{ $user->id }}/editband" method="POST" >
         @csrf
         @method('PUT')
         <nobr>

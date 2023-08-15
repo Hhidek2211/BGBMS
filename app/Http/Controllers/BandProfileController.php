@@ -31,4 +31,26 @@ class BandProfileController extends Controller
         return view("band.bandpage")->with([ 'band'=>$band ]);
     }
     
+    public function edit(BandProfile $band, UserProfile $user) {
+        //dd($band);
+        $member = BandProfile::find($band->id)-> user_profiles()-> get();
+        //dd($member);
+        return view("band.edit")->with(['band'=> $band, 'members'=> $member, 'users'=> $user-> get()]);
+    }
+    
+    public function update(BandRequest $request, BandProfile $band) {
+        $update_prof = $request['editband'];
+        $update_member = $request->bandmember;
+        
+        foreach($update_member as $key => $value)   //未入力値の削除
+            if($value == ""){
+                unset($update_member[$key]);
+            }
+        
+        $band-> fill($update_prof)-> save();
+        $band-> user_profiles()-> detach();
+        $band-> user_profiles()-> attach($update_member);
+        return redirect("/menu/top");
+    }
+    
 }

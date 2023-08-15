@@ -39,12 +39,14 @@ Route::controller(UserController::class)->group(function(){
     Route::get('/user/create', 'create') -> name('usercreate');
     Route::post('/user/createuser', 'store') ->name('userstore');
     Route::get('/user/{user}/edit', 'edit') ->name('useredit');
-    Route::put('/user/{user}', 'update')->name('userupdate');
+    Route::put('/user/{user}/editband', 'update')->name('userupdate');
     Route::get('/band/list', 'bandlist')->name('list');
 });
 
 Route::controller(BandProfileController::class)->group(function(){
-   Route::get('/band/create', 'create')->name('bandcreate');
-   Route::post('/band/editband', 'store')->name('bandstore');
-   Route::get('/band/{band}', 'bandpage')->name('bandpage');
+    Route::get('/band/create', 'create')->name('bandcreate');
+    Route::post('/band/createband', 'store')->name('bandstore');
+    Route::get('/band/{band}', 'bandpage')->name('bandpage');
+    Route::get('/band/{band}/edit', 'edit')->name('bandedit');
+    Route::put('/band/{band}/editband', 'update')->name('bandupdate');
 });
