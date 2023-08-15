@@ -30,7 +30,7 @@ class UserController extends Controller
         $inst = UserProfile::find($user->id)-> instruments()-> get();
         //dd(gettype($inst));
         $instid = array_column($inst->toArray(),'id');
-        dd($instid);
+        //dd($instid);
         return view('user.edit')->with(['user'=>$user, 'instruments'=>$instrument->get(), 'inst'=>$inst]);
     }
     
