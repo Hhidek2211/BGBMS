@@ -13,6 +13,10 @@ class BandProfile extends Model
         return $this -> belongsToMany(UserProfile::class)->withPivot('user_profile_id');
     }
     
+    public function recruitmentts(){
+        return $this-> belongsTo(Recruitment::class);
+    }
+    
     protected $fillable = [
         'name',
         'introduction',
@@ -23,4 +27,5 @@ class BandProfile extends Model
             $query->where('id', $user);
         }])->get(); 
     }
+
 }

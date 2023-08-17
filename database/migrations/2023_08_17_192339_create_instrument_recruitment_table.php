@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('recruitments', function (Blueprint $table) {
-            $table->id();
-            $table->date('deadline')->nullable();
-            $table->string('title', 30)->nullable();
-            $table->string('message', 200)->nullable();
-            $table->timestamps();
-            $table->softdeletes();
+        Schema::create('instrument_recruitment', function (Blueprint $table) {
+            $table-> foreignID('instrument_id')-> constrained('instruments');
+            $table-> foreignID('recruitment_id')-> constrained('recruitments');
+            $table-> primary(['instrument_id','recruitment_id']);
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recruitments');
+        Schema::dropIfExists('instrument_recruitment');
     }
 };

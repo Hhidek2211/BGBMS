@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('recruitments', function (Blueprint $table) {
-            $table->id();
-            $table->date('deadline')->nullable();
-            $table->string('title', 30)->nullable();
-            $table->string('message', 200)->nullable();
-            $table->timestamps();
-            $table->softdeletes();
+        Schema::table('band_profiles', function (Blueprint $table) {
+            $table->foreignId('recruitment_id')-> nullable()-> constrained();
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recruitments');
+        Schema::table('band_profiles', function (Blueprint $table) {
+            $table-> dropforeign(['recruitment_id']);
+        });
     }
 };
