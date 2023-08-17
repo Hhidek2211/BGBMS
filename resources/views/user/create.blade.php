@@ -30,7 +30,7 @@
                 <h2>楽器</h2>
                 @foreach ($instruments as $instrument)
                 <label>
-                <input type="checkbox"  value="{{ $instrument->id }}" name="instrument[]">
+                <input type="checkbox"  value="{{ $instrument->id }}" name="recruitinst[]">
                     {{ $instrument->name }}
                 </input>
                 </label>

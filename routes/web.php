@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BandProfileController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RecruitmentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,4 +50,9 @@ Route::controller(BandProfileController::class)->group(function(){
     Route::get('/band/{band}', 'bandpage')->name('bandpage');
     Route::get('/band/{band}/edit', 'edit')->name('bandedit');
     Route::put('/band/{band}/editband', 'update')->name('bandupdate');
+});
+
+Route::controller(RecruitmentController::class)->group(function(){
+    Route::get('/band/{band}/recruitment/create', 'create')->name('recruitmentcreate');
+    ROute::post('/band/{band}/recruitment/createrecruit', 'store')->name('recruitmentstore');
 });

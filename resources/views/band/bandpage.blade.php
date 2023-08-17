@@ -10,7 +10,8 @@
     
     <body>
       <h2>{{ $band->name }} のバンドメニュー</h2>
-      <a href="/band/{{ $band-> id}}}/edit" class="bandedit">バンドプロフィール編集</p>
+      <a href="/band/{{ $band->id }}}/edit" class="bandedit">バンドプロフィール編集</p>
+      <a href="/band/{{ $band->id }}/recruitment/create" class="recruitmentcreate">メンバー募集作成</a>
     </body>
 </html>
 
