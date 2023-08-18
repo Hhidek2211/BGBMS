@@ -13,7 +13,7 @@ class BandProfile extends Model
         return $this -> belongsToMany(UserProfile::class)->withPivot('user_profile_id');
     }
     
-    public function recruitmentts(){
+    public function recruitment(){
         return $this-> belongsTo(Recruitment::class);
     }
     
@@ -27,5 +27,5 @@ class BandProfile extends Model
             $query->where('id', $user);
         }])->get(); 
     }
-
+    
 }
