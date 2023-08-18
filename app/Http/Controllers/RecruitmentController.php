@@ -37,8 +37,9 @@ class RecruitmentController extends Controller
     }
     
     public function detail(Recruitment $recruit) {
+        $insts = Recruitment::find($recruit->id)-> instruments()-> get();
         $band = BandProfile::where('recruitment_id', $recruit->id)-> first();
-        dd($band, $recruit);
-        return view('recruitment.detail')->with(['recruit'=> $recruit, 'band'=> $band]);
+        //dd($inst, $band, $recruit);
+        return view('recruitment.detail')->with(['insts'=>$insts, 'recruit'=> $recruit, 'band'=> $band]);
     }
 }

@@ -16,11 +16,18 @@
           <p>募集者：{{ $band->name }}</p>
       </div>
       <div class="instruments">
-          
+          <p>募集楽器：</p>
+          @foreach($insts as $inst)
+            <p>{{ $inst->name }}</p>
+          @endforeach
       </div>
       <div class="message">
           <p>メッセージ：</p>
           <p>{{ $recruit->message }}</p>
+      </div>
+      <br>
+      <div class="application">
+          <h2>応募する</h2>
       </div>
     </body>
 </html>
