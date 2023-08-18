@@ -14,7 +14,7 @@ class Instrument extends Model
     }
     
     public function recruitments() {
-        return $this-> belongsToMany(Recruitment::class);
+        return $this-> belongsTo(Recruitment::class);
     }
     
     public function GetUserInstrumentId(UserProfile $user) {

@@ -55,4 +55,6 @@ Route::controller(BandProfileController::class)->group(function(){
 Route::controller(RecruitmentController::class)->group(function(){
     Route::get('/band/{band}/recruitment/create', 'create')->name('recruitmentcreate');
     ROute::post('/band/{band}/recruitment/createrecruit', 'store')->name('recruitmentstore');
+    Route::get('/recruitment/list', 'list')->name('recruitmentlist');
+    Route::get('/recruitment/list/{recruit}', 'detail')->name('recruitdetail');
 });

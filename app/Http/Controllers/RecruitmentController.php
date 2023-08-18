@@ -26,4 +26,19 @@ class RecruitmentController extends Controller
         $band-> save();
         return redirect('/menu/top');
     }
+    
+    public function list() {
+        $bands = BandProfile::with('recruitment')-> whereNotNull('recruitment_id')-> get();
+        //dd($bands);
+        //$recruit = $band-> recruitment()->first();
+        //dd($band, $recruit);
+        //dd($recruit);
+        return view('recruitment.list')->with(['bands'=> $bands]);
+    }
+    
+    public function detail(Recruitment $recruit) {
+        $band = BandProfile::where('recruitment_id', $recruit->id)-> first();
+        dd($band, $recruit);
+        return view('recruitment.detail')->with(['recruit'=> $recruit, 'band'=> $band]);
+    }
 }

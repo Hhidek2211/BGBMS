@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('band_profiles', function (Blueprint $table) {
-            $table->foreignId('recruitment_id')-> nullable()-> constrained();
+            $table->foreignId('recruitment_id')-> nullable()-> constrained('recruitments');
         });
     }
 

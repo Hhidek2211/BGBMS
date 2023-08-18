@@ -9,8 +9,8 @@ class Recruitment extends Model
 {
     use HasFactory;
     
-    public function band_profiles() {
-        return $this-> hasMany(BandProfile::class); 
+    public function band_profile() {
+        return $this-> hasOne(BandProfile::class); 
     }
     
     public function instruments() {
