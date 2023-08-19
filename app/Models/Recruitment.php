@@ -17,6 +17,10 @@ class Recruitment extends Model
         return $this-> belongsToMany(Instrument::class);
     }
     
+    public function user_profiles() {
+        return $this-> belongsToMany(UserProfile::class, 'applications')->withPivot(['message', 'appinstid'])->withTimestamps();
+    }
+    
     protected $fillable = [
         'title',
         'message',

@@ -21,11 +21,5 @@ class BandProfile extends Model
         'name',
         'introduction',
         ];
-        
-    public function getuserband($user){
-        return $this::with(['user_profiles' => function ($query) {
-            $query->where('id', $user);
-        }])->get(); 
-    }
     
 }

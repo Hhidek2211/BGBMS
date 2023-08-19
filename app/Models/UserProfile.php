@@ -21,8 +21,12 @@ class UserProfile extends Model
         return $this -> belongsToMany(Instrument::class)->withPivot('user_profile_id');
     }
     
-    public function GetUserInfo(){
-        return $this -> where('user_id', \Auth::user()->id)->first();
+    public function recruitments() {
+        return $this->belongsToMany(Recruitment::class, 'applications');
+    }
+    
+    public function getUserInfo(){
+        return $this -> where('user_id', \Auth::user()->id)-> first();
     }
     
     protected $fillable = [

@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('applications', function (Blueprint $table) {
-            $table->foreignId('rectuitment_id')->constrained('recruitments');
+            $table->foreignId('recruitment_id')->constrained('recruitments');
             $table->foreignId('user_profile_id')->constrained('user_profiles');
+            $table->primary(['recruitment_id','user_profile_id']);
             $table->string('message', 100);
             $table->timestamps();
             $table->softdeletes();
