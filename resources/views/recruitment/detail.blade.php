@@ -27,7 +27,7 @@
       </div>
       <br>
       <div class="application">
-          <h2>応募する</h2>
+          <a href="/recruitment/{{ $recruit->id }}/form">応募する</a>
       </div>
     </body>
 </html>

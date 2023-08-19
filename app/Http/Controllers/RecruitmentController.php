@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RecruitRequest;
 use App\Models\Recruitment;
 use App\Models\Instrument;
+use App\Models\UserProfile;
 use App\Models\BandProfile;
+use App\Http\Requests\AppRequest;
 
 class RecruitmentController extends Controller
 {
@@ -42,4 +44,35 @@ class RecruitmentController extends Controller
         //dd($inst, $band, $recruit);
         return view('recruitment.detail')->with(['insts'=>$insts, 'recruit'=> $recruit, 'band'=> $band]);
     }
+    
+    public function appform(Recruitment $recruit, UserProfile $user) {
+        $userinfo = $user-> getUserInfo();      //コントローラーで使用するuserprofileのidを取得する(もうちょっとキレイにかけそうだなぁ)
+        $userinsts = UserProfile::find($userinfo->id)-> instruments()-> get();  //ユーザーの保持する楽器レコード取得
+        $band = BandProfile::where('recruitment_id', $recruit->id)-> first();
+        $recruitinsts = Recruitment::find($recruit->id)-> instruments()->select('id')-> get()-> toArray();   
+        $recruitinstids = array_column($recruitinsts, 'id');//募集している楽器idの取得
+        
+        //dd($userinstids, $recruitinstids);
+        $matchinstids = array();    //募集-ユーザー間で共通する楽器検索
+        foreach ($userinsts as $userinst) {
+            if (in_array($userinst->id, $recruitinstids)) {
+                $matchinsts[] = $userinst; 
+            }    
+        }
+        
+        //dd($user, $band, $recruit, $userinfo, $userinsts, $recruitinstids, $matchinsts); 
+        return view('recruitment.appform')-> with(['user'=> $user-> getUserInfo(), 'band'=> $band, 'recruit'=> $recruit, 'insts'=>$matchinsts]);
+    }
+    
+    public function application(Recruitment $recruit, AppRequest $request) {
+        $input = $request['application'];
+        $input += array('recruitment_id'=> $recruit->id);
+        //dd($input);
+        //$input_string =$request['application'];
+        //dd($input_string);
+        
+        $recruit-> user_profiles()-> attach($input['user_profile_id'], ['message'=>$input['message'], 'appinstid'=>$input['appinstid'] ]);
+        return redirect('/menu/top'); 
+    }
 }
+
