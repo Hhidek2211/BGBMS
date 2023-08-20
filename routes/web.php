@@ -50,6 +50,7 @@ Route::controller(BandProfileController::class)->group(function(){
     Route::get('/band/{band}', 'bandpage')->name('bandpage');
     Route::get('/band/{band}/edit', 'edit')->name('bandedit');
     Route::put('/band/{band}/editband', 'update')->name('bandupdate');
+    Route::get('/band/{band}/applist', 'applist')->name('applist');
 });
 
 Route::controller(RecruitmentController::class)->group(function(){

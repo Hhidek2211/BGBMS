@@ -71,8 +71,9 @@ class RecruitmentController extends Controller
         //$input_string =$request['application'];
         //dd($input_string);
         
-        $recruit-> user_profiles()-> attach($input['user_profile_id'], ['message'=>$input['message'], 'appinstid'=>$input['appinstid'] ]);
+        $recruit-> user_profiles()-> attach($input['user_profile_id'], ['message'=>$input['message'], 'instrument_id'=>$input['appinstid'] ]);
         return redirect('/menu/top'); 
     }
+    
 }
 

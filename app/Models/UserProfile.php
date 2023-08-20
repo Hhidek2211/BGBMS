@@ -22,7 +22,11 @@ class UserProfile extends Model
     }
     
     public function recruitments() {
-        return $this->belongsToMany(Recruitment::class, 'applications');
+        return $this->belongsToMany(Recruitment::class, 'applications')->withPivot(['message', 'instrument_id']);
+    }
+    
+    public function applications() {
+        return $this->hasMany(Application::class);
     }
     
     public function getUserInfo(){

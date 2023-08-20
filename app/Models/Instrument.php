@@ -17,6 +17,10 @@ class Instrument extends Model
         return $this-> belongsToMany(Recruitment::class);
     }
     
+    public function instruments() {
+        return $this-> hasMany(Application::class);
+    }
+    
     public function GetUserInstrumentId(UserProfile $user) {
         $user -> GetUserInfo();
         return $this -> Instrument::wherePivot('user_profile_id', $user->id)->get();
