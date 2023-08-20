@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('applications', function (Blueprint $table) {
-            $table->integer('appinstid');
+            $table->foreignID('instrument_id')->constrained('instruments');
         });
     }
 
