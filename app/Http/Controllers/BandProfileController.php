@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\UserProfile;
 use App\Models\BandProfile;
 use App\Models\Recruitment;
+use App\Models\Application;
 use App\Http\Requests\BandRequest;
 
 class BandProfileController extends Controller
@@ -58,7 +59,32 @@ class BandProfileController extends Controller
         $recruit = $band-> recruitment()-> first();
         $appinfos = $recruit-> applications()->with(['instrument','user_profile'])-> get();
         //dd($recruit, $appinfos);
-        return view('band.applist')->with(['recruit'=> $recruit, 'appinfos'=> $appinfos, 'band'=> $band]);
+        return view('band.applist')->with(['appinfos'=> $appinfos, 'band'=> $band]);
+    }
+    
+    public function appdetail(BandProfile $band, UserProfile $user) {   //applicationが固有idを持たないため、UserProfile経由でappinfoを取得する。
+        $recruit = $band-> recruitment()-> first();
+        $user = $user->with('instruments')->find($user->id);    //  メモ：定義済みインスタンスにリレーション先の情報を書き込むことが出来た例。findでできてしまった。さすがにlaravelが有能といわざるを得ない。
+        $appinfo = Application::with('instrument')
+                -> where('user_profile_id', $user->id)
+                -> where('recruitment_id', $recruit->id)
+                -> first();
+        //dd($band,$user, $appinfo);
+        return view('band.appdetail')->with(['band'=> $band, 'user'=> $user, 'appinfo'=> $appinfo]); 
+    }
+    
+    public function approval(BandProfile $band, UserProfile $user) {
+        $members = $band->user_profiles()->get();
+        $band-> user_profiles()-> detach();
+        //dd($band);  //このダンプを使うとメンバー情報を消せる（なぜかバグってsyntaxエラーになる）
+        $band-> user_profiles()-> attach($user);  //ユーザーの追加処理 ここまでの処理ですでにメンバーとして登録済みのユーザーがここに来れない前提で組んでいるため要対策
+        $band-> user_profiles()-> attach($members); //メモ：なぜか[]を使って一文で書こうとするとdatetimeformatでエラーを吐く。意味が分からない。
+        //dd($band, $members);
+        
+        $recruit = $band-> recruitment()->first();
+        $recruit-> user_profiles()-> detach($user->id); //応募の削除処理
+        return redirect()->route('applist', ['band'=> $band->id]);  //処理成功未確認 とりあえず主な処理は成功したのでデバッグ中に確かめるべし
+        
     }
     
 }
