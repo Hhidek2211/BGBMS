@@ -53,7 +53,7 @@ class RecruitmentController extends Controller
         $recruitinstids = array_column($recruitinsts, 'id');//募集している楽器idの取得
         
         //dd($userinstids, $recruitinstids);
-        $matchinstids = array();    //募集-ユーザー間で共通する楽器検索
+        $matchinsts = array();    //募集-ユーザー間で共通する楽器検索
         foreach ($userinsts as $userinst) {
             if (in_array($userinst->id, $recruitinstids)) {
                 $matchinsts[] = $userinst; 

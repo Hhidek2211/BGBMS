@@ -12,7 +12,7 @@
         <div class="userband">
          <h1>{{ $band->name }}さんの募集に対する応募</h1>
          @foreach($appinfos as $appinfo)
-            <p>{{ $appinfo->user_profile->name }}さん</p>
+            <a href="/band/{{ $band->id }}/app/{{ $appinfo->user_profile->id }}/detail">{{ $appinfo->user_profile->name }}さん</a>
             <p>応募楽器：{{ $appinfo->instrument->name }}</p>
             <p>メッセージ：</p>
             <p>{{ $appinfo->message }}</p>

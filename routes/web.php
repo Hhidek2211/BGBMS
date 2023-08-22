@@ -50,7 +50,9 @@ Route::controller(BandProfileController::class)->group(function(){
     Route::get('/band/{band}', 'bandpage')->name('bandpage');
     Route::get('/band/{band}/edit', 'edit')->name('bandedit');
     Route::put('/band/{band}/editband', 'update')->name('bandupdate');
-    Route::get('/band/{band}/applist', 'applist')->name('applist');
+    Route::get('/band/{band}/app/list', 'applist')->name('applist');
+    Route::get('/band/{band}/app/{user}/detail', 'appdetail')->name('appdetail'); //applicationsテーブルは自己idを保持しないためuserprofiles経由で情報を格納する
+    Route::put('/band/{band}/app/{user}/approval', 'approval')->name('app_approval');
 });
 
 Route::controller(RecruitmentController::class)->group(function(){
@@ -60,4 +62,5 @@ Route::controller(RecruitmentController::class)->group(function(){
     Route::get('/recruitment/list/{recruit}', 'detail')->name('recruitdetail');
     Route::get('/recruitment/{recruit}/form', 'appform')->name('applicationform');
     Route::post('/recruitment/{recruit}/app', 'application')->name('application');
+    Route::delete('/recruitment/{recruit}/delete', 'delete')->name('recruitdelete');
 });
