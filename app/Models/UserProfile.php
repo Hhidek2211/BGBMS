@@ -9,6 +9,7 @@ class UserProfile extends Model
 {
     use HasFactory;
     
+    //リレーション定義
     public function user(){
         return $this -> belongsTo(user::class);
     }
@@ -29,6 +30,11 @@ class UserProfile extends Model
         return $this->hasMany(Application::class);
     }
     
+    public function scouts () {
+        return $this-> hasMany(Scout::class);
+    }
+    
+    //処理に利用するメソッド
     public function getUserInfo() {
         return $this-> where('user_id', \Auth::user()->id)-> first();
     }
