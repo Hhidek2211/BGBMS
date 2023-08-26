@@ -11,33 +11,36 @@ use App\Http\Requests\BandRequest;
 
 class BandProfileController extends Controller
 {
-    public function create(UserProfile $user){
-        return view("band.create")->with(['users'=>$user ->get()]);
+    public function create(UserProfile $users){
+        return view("band.create")->with(['users'=> $users-> get()]);
     }
     
     public function store(BandRequest $request, BandProfile $prof){
         $input_prof = $request['editband'];
-        $input_member = $request->bandmember;
+        $input_member = $request-> bandmember;
         //dd($input_prof);
+        dd($input_member);
         foreach($input_member as $key => $value)   //未入力値の削除
             if($value == ""){
                 unset($input_member[$key]);
             }
-        
-        $prof->fill($input_prof)->save();
-        $prof->user_profiles()->attach($input_member);
-        return redirect("/menu/top");
+            
+        if(empty($input_member)) {} else {      //バンドメンバーを未登録なら保存しない、まずそもそもバリデーションではじくべきではある
+        $prof-> fill($input_prof)-> save();
+        $prof-> user_profiles()-> attach($input_member);
+        }
+        return redirect()-> route('top');
     }
     
     public function bandpage(BandProfile $band) {
-        return view("band.bandpage")->with([ 'band'=>$band ]);
+        return view("band.bandpage")->with(['band'=> $band]);
     }
     
     public function edit(BandProfile $band, UserProfile $user) {
         //dd($band);
         $member = BandProfile::find($band->id)-> user_profiles()-> get();
         //dd($member);
-        return view("band.edit")->with(['band'=> $band, 'members'=> $member, 'users'=> $user-> get()]);
+        return view("band.edit")-> with(['band'=> $band, 'members'=> $member, 'users'=> $user-> get()]);
     }
     
     public function update(BandRequest $request, BandProfile $band) {
@@ -52,7 +55,7 @@ class BandProfileController extends Controller
         $band-> fill($update_prof)-> save();
         $band-> user_profiles()-> detach();
         $band-> user_profiles()-> attach($update_member);
-        return redirect("/menu/top");
+        return redirect()-> route('top');
     }
     
     public function applist(BandProfile $band) {     //recruitment機能の側面も持つ　募集に対する応募への返答 最終的に当テーブルの持つuser_profilesリレーションを使って値を挿入するためこちらに実装 

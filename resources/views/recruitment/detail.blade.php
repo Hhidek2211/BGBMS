@@ -27,7 +27,7 @@
       </div>
       <br>
       <div class="application">
-          <a href="/recruitment/{{ $recruit->id }}/form">応募する</a>
+          <a href="{{ route('appform', ['recruit'=> $recruit->id]) }}">応募する</a>
       </div>
     </body>
 </html>

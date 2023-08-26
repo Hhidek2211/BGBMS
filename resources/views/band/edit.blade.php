@@ -15,7 +15,7 @@
         @endphp--}}
         
        <p1>バンド作成</p1>
-       <form action="/band/{{ $band->id }}/editband" method="POST" >
+       <form action="{{ route('bandupdate', ['band'=> $band->id]) }}" method="POST" >
         @csrf
         @method('PUT')
             <div class="name">

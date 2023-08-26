@@ -10,7 +10,7 @@
     
     <body>
       <h1>募集作成</h1>
-      <form action="/band/{{ $band->id }}/recruitment/createrecruit" method="POST">
+      <form action="{{ route('recruitmentstore', ['band'=> $band->id]) }}" method="POST">
         @csrf
         <div class="title">
          <h2>募集タイトル</h2>

@@ -12,14 +12,16 @@
       <h1>現在募集中のバンド</h1>
       
       <div class="bandlist">
+        {{--@if(isset($recruits))--}}
           @foreach ($bands as $band)
             <div class="title">
-                <a href="/recruitment/list/{{ $band->recruitment->id }}">{{ $band->recruitment->title }}</a>
+                <a href="{{ route('recruitdetail', ['recruit'=> $band->recruitment->id]) }}">{{ $band->recruitment->title }}</a>
             </div>
             <div class="name">
                 <p>募集者：{{ $band->name }}</p>
             </div>
           @endforeach
+        {{--@endif--}}
       </div>
     </body>
 </html>

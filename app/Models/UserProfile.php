@@ -29,8 +29,8 @@ class UserProfile extends Model
         return $this->hasMany(Application::class);
     }
     
-    public function getUserInfo(){
-        return $this -> where('user_id', \Auth::user()->id)-> first();
+    public function getUserInfo() {
+        return $this-> where('user_id', \Auth::user()->id)-> first();
     }
     
     protected $fillable = [

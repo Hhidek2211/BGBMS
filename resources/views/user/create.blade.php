@@ -10,7 +10,7 @@
     
     <body>
        <p1>ユーザープロフィール作成</p1>
-       <form action="/user/createuser" method="POST" >
+       <form action="{{ route('userstore') }}" method="POST" >
         @csrf
         <nobr>
             <div class="name">

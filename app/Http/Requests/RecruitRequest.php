@@ -22,7 +22,7 @@ class RecruitRequest extends FormRequest
         return [
             'createrecruit.title'=> 'string|max:30|required',
             'createrecruit.message'=> 'string|max:200|required',
-            'recruitinst'=> 'required'
+            'recruitinst'=> 'required:'
         ];
     }
 }

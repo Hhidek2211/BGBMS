@@ -10,7 +10,7 @@
     
     <body>
         <p1>ユーザープロフィール編集</p1>
-       <form action="/user/{{ $user->id }}/editband" method="POST" >
+       <form action="{{ route('userupdate', ['user'=> $user->id]) }}" method="POST">
         @csrf
         @method('PUT')
         <nobr>
@@ -30,23 +30,9 @@
             <div class="instrument">
                 <h2>楽器</h2>
                 @foreach ($instruments as $instrument)
-                {{--@php
-                dd($instrument, $user, $inst);
-                @endphp --}}
+                {{--@php dd($instrument, $user, $inst) @endphp --}}
                 <lavel>
-                    @php
-                        $flag = 0
-                    @endphp
-                
-                        @foreach($inst as $instid)
-                            @if( $instrument->id == $instid->id )
-                                @php
-                                    $flag = 1
-                                @endphp
-                            @endif
-                        @endforeach
-                    
-                    @if ( $flag == 1)
+                    @if ( in_array($instrument->id, $userinstids))      {{-- ユーザーが登録した楽器のみ初期選択状態にする --}}
                     <input type="checkbox" value="{{ $instrument->id }}" name="instrument[]" checked>
                             {{ $instrument->name }} 
                     @else 
