@@ -26,7 +26,7 @@
         </div>
          <br>
         <div class="approval">
-         <form action="/band/{{ $band->id }}/app/{{ $user->id }}/approval" method="POST">
+         <form action="{{ route('app_approval', ['band'=> $band->id, 'user'=> $user->id]) }}" method="POST">
           @csrf
           @method('PUT')
           <input type="submit" value="応募を承認する">

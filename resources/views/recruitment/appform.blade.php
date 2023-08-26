@@ -11,7 +11,7 @@
     <body>
        <h1>{{ $band->name }}の募集に応募する</h1>
        <div class="appform">
-        <form action="/recruitment/{{ $recruit->id }}/app" method="POST">
+        <form action="{{ route('application', ['recruit'=> $recruit->id ]) }}" method="POST">
         @csrf  
             <div class="appinsts">
                 <h2>応募する楽器</h2>

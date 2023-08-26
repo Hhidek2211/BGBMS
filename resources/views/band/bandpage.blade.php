@@ -10,9 +10,9 @@
     
     <body>
       <h2>{{ $band->name }} のバンドメニュー</h2>
-      <a href="/band/{{ $band->id }}}/edit" class="bandedit">バンドプロフィール編集</a><br>
-      <a href="/band/{{ $band->id }}/recruitment/create" class="recruitmentcreate">メンバー募集作成</a><br>
-      <a href="/band/{{ $band->id }}/app/list" class="applist">募集への応募一覧</a><br>
+      <a href="{{ route('bandedit', ['band'=> $band->id]) }}" class="bandedit">バンドプロフィール編集</a><br>
+      <a href="{{ route('recruitmentcreate', ['band'=> $band->id ]) }}" class="recruitmentcreate">メンバー募集作成</a><br>
+      <a href="{{ route('applist', ['band'=> $band->id]) }}" class="applist">募集への応募一覧</a><br>
     </body>
 </html>
 

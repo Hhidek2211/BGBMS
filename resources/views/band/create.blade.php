@@ -10,7 +10,7 @@
     
     <body>
        <p1>バンド作成</p1>
-       <form action="/band/createband" method="POST" >
+       <form action="{{ route('bandstore') }}" method="POST" >
         @csrf
             <div class="name">
              <h2>バンド名</h2>

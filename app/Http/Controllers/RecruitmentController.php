@@ -29,13 +29,8 @@ class RecruitmentController extends Controller
         return redirect('/menu/top');
     }
     
-    public function list() {
-        $bands = BandProfile::with('recruitment')-> whereNotNull('recruitment_id')-> get();
-        //dd($bands);
-        //$recruit = $band-> recruitment()->first();
-        //dd($band, $recruit);
-        //dd($recruit);
-        return view('recruitment.list')->with(['bands'=> $bands]);
+    public function Recruitlist(Recruitment $recruit, BandProfile $band) {
+        return view('recruitment.list')->with(['bands'=> $band-> sortRecruitBands(), 'recruits'=> $recruit-> get()]);  //$recruitsは募集の存在判定に利用
     }
     
     public function detail(Recruitment $recruit) {

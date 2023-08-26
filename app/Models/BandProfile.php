@@ -21,5 +21,16 @@ class BandProfile extends Model
         'name',
         'introduction',
         ];
+        
+    public function sortRecruitBands () {
+        $user = UserProfile::first()-> getUserInfo();
+        //d($user);
+        return $this-> with('recruitment')
+                    -> whereNotNull('recruitment_id')
+                    -> whereHas('user_profiles', function($q) use($user) {
+                        $q-> where('id', '!=', $user->id);
+                    })
+                    -> get();
+    }
     
 }
