@@ -17,6 +17,10 @@ class BandProfile extends Model
         return $this-> belongsTo(Recruitment::class);
     }
     
+    public function scouts () {
+        return $this-> hasMany(Scout::class);
+    }
+    
     protected $fillable = [
         'name',
         'introduction',
