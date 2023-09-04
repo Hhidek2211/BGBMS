@@ -5,6 +5,7 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\BandProfileController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RecruitmentController;
+use App\Http\Controllers\ScoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,4 +63,12 @@ Route::controller(RecruitmentController::class)->group(function(){
     Route::get('/recruitment/{recruit}/form', 'appform')->name('appform');
     Route::post('/recruitment/{recruit}/app', 'application')->name('application');
     Route::delete('/recruitment/{recruit}/delete', 'delete')->name('recruitdelete');
+});
+
+Route::controller(ScoutController::class)->group(function () {
+    Route::get('/band/{band}/scout/select', 'select')->name('scout_userselect');
+    Route::get('/band/{band}/scout/select/re', 'reload')->name('scout_userselect_reload');
+    Route::get('/band/{band}/scout/{user}', 'detail')->name('scout_userdetail');
+    Route::get('/band/{band}/scout/{user}/create', 'create')->name('scout_create');
+    Route::post('/band/{band}/scout/{user}/create/store', 'store')->name('scout_store');
 });

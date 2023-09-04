@@ -16,4 +16,11 @@ class Scout extends Model
     public function band_profile () {
         return $this-> belongsTo(BandProfile::class);
     }
+    
+    protected $fillable = [
+        'title',
+        'message',
+        'user_profile_id',
+        'band_profile_id',
+        ];
 }

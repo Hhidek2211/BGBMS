@@ -9,7 +9,7 @@ class UserProfile extends Model
 {
     use HasFactory;
     
-    //リレーション定義
+//<リレーション定義>
     public function user(){
         return $this -> belongsTo(user::class);
     }
@@ -34,9 +34,33 @@ class UserProfile extends Model
         return $this-> hasMany(Scout::class);
     }
     
-    //処理に利用するメソッド
+//<処理に利用するメソッド>
+    //ログインユーザーと結びつくUserProfileのレコードを取得
     public function getUserInfo() {
         return $this-> where('user_id', \Auth::user()->id)-> first();
+    }
+    
+    //全ユーザーを登録している楽器ごとに分け、楽器ごとに個別の配列に格納する
+    public function getByInstrument ($band) {
+        $instids = Instrument::first()-> getInstidsInArray();
+        $instids = array_column($instids, 'id');        //instrumentsに存在するidを単純な配列で取得
+        
+        $memberid = $band-> user_profiles()     //検索の除外対象である操作中バンドのメンバーのidを取得
+                 -> select('id')
+                 -> get()
+                 -> toArray();
+        $memberid = array_column($memberid, 'id');
+        //dd($memberid);
+        $return[] = 0;  //instのidと取得配列の番号一致のため０番に空要素を挿入
+        
+        foreach ($instids as $instid) {     //配列変数$returnに6つのコレクションインスタンスを格納、各配列にidの一致する楽器を登録しているユーザーを登録
+        $return[] = UserProfile::with('instruments')
+                 -> wherehas('instruments', function($q) use($instid) {
+                    $q-> where('id', $instid); })
+                 -> whereNotIn('id', $memberid)     //うちバンドメンバーのみ除外
+                 -> get();
+        }
+        return $return;
     }
     
     protected $fillable = [
