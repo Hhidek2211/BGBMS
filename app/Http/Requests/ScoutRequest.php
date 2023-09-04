@@ -3,15 +3,16 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class RecruitRequest extends FormRequest
+class ScoutRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
-     *
-     * 
+     */
+    
     /**
      * Get the validation rules that apply to the request.
      *
@@ -20,9 +21,10 @@ class RecruitRequest extends FormRequest
     public function rules()
     {
         return [
-            'createrecruit.title'=> 'string|max:30|required',
-            'createrecruit.message'=> 'string|max:200|required',
-            'recruitinst'=> 'required'
+            'scout.title'=> 'string|max:30|required',
+            'scout.message'=> 'string|max:200|required',
+            'userid'=> Rule::unique('scouts', 'user_profile_id')
+                    -> where('band_profile_id', $this->input('bandid'))
         ];
     }
 }
