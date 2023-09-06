@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\UserProfile;
 use App\Models\BandProfile;
 use App\Models\Instrument;
+use App\Models\Scout;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 
@@ -56,5 +57,30 @@ class UserProfileController extends Controller
         $userbands = $user-> band_profiles()-> get();
         //dd($userbands);
         return view('band.list')-> with(['userbands'=> $userbands]);
+    }
+    
+//<スカウト承認に関しての処理>
+    //スカウト一覧の確認画面
+    public function scoutlist(UserProfile $user) {
+        $scouts = Scout::with('band_profile')-> where('user_profile_id', $user->id)-> get();
+        return view('user.scoutlist')-> with(compact(['user', 'scouts']));
+    }
+    
+    //個々のスカウトの詳細及び承認画面
+    public function scoutdetail(UserProfile $user, Scout $scout) {
+        $band = BandProfile::with('user_profiles')->find($scout->band_profile_id);
+        //dd($scout);
+        return view('user.scoutdetail')-> with(compact(['user', 'scout', 'band']));
+    }
+    
+    //スカウト承認後のメンバー追加処理
+    public function scoutapprove(UserProfile $user, Scout $scout) {
+        $band = BandProfile::with('user_profiles')-> find($scout->band_profile_id);
+        $members = $band-> user_profiles()-> select('id')-> get();
+        //dd($member, $band);
+        $band-> user_profiles()-> detach();
+        $band-> user_profiles()-> attach($members);
+        $band-> user_profiles()-> attach($user->id);
+        return redirect()-> route('top');
     }
 }

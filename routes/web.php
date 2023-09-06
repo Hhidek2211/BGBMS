@@ -42,6 +42,9 @@ Route::controller(UserProfileController::class)->group(function(){
     Route::get('/user/{user}/edit', 'edit') ->name('useredit');
     Route::put('/user/{user}/edit/update', 'update')->name('userupdate');
     Route::get('/user/{user}/band/list', 'bandlist')->name('bandlist');
+    Route::get('/user/{user}/scout/list', 'scoutlist')->name('scout_list'); // ユーザー機能の中でスカウトを確認するためuserprofileconrollerに実装
+    Route::get('/user/{user}/scout/{scout}', 'scoutdetail')->name('scout_detail');
+    Route::put('/user/{user}/scout/{scout}/approve', 'scoutapprove')->name('scout_approve');
 });
 
 Route::controller(BandProfileController::class)->group(function(){

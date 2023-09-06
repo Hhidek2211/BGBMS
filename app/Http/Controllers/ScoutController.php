@@ -28,9 +28,9 @@ class ScoutController extends Controller
     public function reload(BandProfile $band, Request $request) {
         $loopinstid = (int) $request->loopinstid;
         session(['loopinstid'=> $loopinstid]);  //withメソッドが機能しないのでセッションで実装。挙動は意図通りなんだがwithじゃダメだった理由は謎。
-        //dump($loopinstid);
-        return redirect()-> route('scout_userselect', ['band'=> $band->id]);
         
+        //dump($loopinstid);
+        return redirect()-> route('scout_userselect', ['band'=> $band->id])-> with(['loopinstid'=> $loopinstid]);
     }
     
     //選んだユーザーの詳細表示
