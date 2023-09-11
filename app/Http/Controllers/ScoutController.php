@@ -43,6 +43,7 @@ class ScoutController extends Controller
 //＜スカウトの作成に関わる処理＞
     //スカウト要項の入力ページ
     public function create(BandProfile $band, UserProfile $user) {
+        $user = $user-> with('instruments')-> find($user->id);
         return view('scout.create')-> with(compact('band', 'user'));
     }
     
@@ -51,6 +52,7 @@ class ScoutController extends Controller
         $input = $request['scout'];
         $input['user_profile_id'] = $user->id;
         $input['band_profile_id'] = $band->id;
+        $input['instrument_id'] = (int)$input['instrument_id'];
         //dump($input);
         $scout-> fill($input)-> save();
         return redirect()-> route('top');

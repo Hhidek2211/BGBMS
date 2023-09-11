@@ -17,10 +17,15 @@ class Scout extends Model
         return $this-> belongsTo(BandProfile::class);
     }
     
+    public function instrument() {
+        return $this->belongsTo(Instrument::class);
+    }
+    
     protected $fillable = [
         'title',
         'message',
         'user_profile_id',
         'band_profile_id',
+        'instrument_id',
         ];
 }

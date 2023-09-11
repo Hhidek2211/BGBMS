@@ -9,6 +9,12 @@
             <input type="text" name="scout[title]" value="{{ old('scout.title') }}">
             <p class="error_name" style="color:red">{{ $errors->first('scout.title') }}</p>
          </div>
+         <div class="instruments">
+            <p>依頼楽器</p>
+            @foreach($user->instruments as $inst)
+               <input type="radio" name="scout[instrument_id]" value="{{ $inst->id }}">{{ $inst->name }}</input>
+            @endforeach
+         </div>
          <div class="message">
             <p>メッセージ</p>
             <input type="text" name="scout[message]" value="{{ old('scout.message') }}"> 

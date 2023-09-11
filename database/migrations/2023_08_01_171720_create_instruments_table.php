@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('instruments', function (Blueprint $table) {
             $table->id();    //楽器名を登録するテーブル
             $table->string('name', 10);
+            $table->string('name_abb', 10);
+            $table->string('name_jp', 10);
         });
     }
 

@@ -13,6 +13,7 @@
      <br>
      <h2>スカウトの情報</h2>
       <p>タイトル：{{ $scout->title }}</p>
+      <p>依頼楽器：{{ $scout->instrument->name_abb }}</p>
       <p>メッセージ：</p>
       <p>{{ $scout->message }}</p>
       
