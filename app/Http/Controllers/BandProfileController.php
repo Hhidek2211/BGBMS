@@ -11,10 +11,14 @@ use App\Http\Requests\BandRequest;
 
 class BandProfileController extends Controller
 {
-    public function create(UserProfile $users){
-        return view("band.create")->with(['users'=> $users-> get()]);
+//<バンド作成機能に関する処理>
+    //バンド作成画面への変遷
+    public function create(){
+        $users = Userprofile::with('instruments')-> get();
+        return view("band.create")->with(['users'=> $users]);
     }
     
+    //バンド作成処理
     public function store(BandRequest $request, BandProfile $prof){
         $input_prof = $request['editband'];
         $input_member = $request-> bandmember;
@@ -32,10 +36,13 @@ class BandProfileController extends Controller
         return redirect()-> route('top');
     }
     
+//<バンドページからできる機能の処理>
+    //バンドページへの移動
     public function bandpage(BandProfile $band) {
         return view("band.bandpage")->with(['band'=> $band]);
     }
     
+    //バンドプロフィール編集機能への移動
     public function edit(BandProfile $band, UserProfile $user) {
         //dd($band);
         $member = BandProfile::find($band->id)-> user_profiles()-> get();
@@ -43,6 +50,7 @@ class BandProfileController extends Controller
         return view("band.edit")-> with(['band'=> $band, 'members'=> $member, 'users'=> $user-> get()]);
     }
     
+    //編集内容の保存
     public function update(BandRequest $request, BandProfile $band) {
         $update_prof = $request['editband'];
         $update_member = $request->bandmember;
@@ -58,6 +66,8 @@ class BandProfileController extends Controller
         return redirect()-> route('top');
     }
     
+//<応募への承認機能についての処理>
+    //応募一覧への移動
     public function applist(BandProfile $band) {     //recruitment機能の側面も持つ　募集に対する応募への返答 最終的に当テーブルの持つuser_profilesリレーションを使って値を挿入するためこちらに実装 
         $recruit = $band-> recruitment()-> first();
         $appinfos = $recruit-> applications()->with(['instrument','user_profile'])-> get();
@@ -65,6 +75,7 @@ class BandProfileController extends Controller
         return view('band.applist')->with(['appinfos'=> $appinfos, 'band'=> $band]);
     }
     
+    //応募の詳細画面
     public function appdetail(BandProfile $band, UserProfile $user) {   //applicationが固有idを持たないため、UserProfile経由でappinfoを取得する。
         $recruit = $band-> recruitment()-> first();
         $user = $user->with('instruments')->find($user->id);    //  メモ：定義済みインスタンスにリレーション先の情報を書き込むことが出来た例。findでできてしまった。さすがにlaravelが有能といわざるを得ない。
@@ -76,6 +87,7 @@ class BandProfileController extends Controller
         return view('band.appdetail')->with(['band'=> $band, 'user'=> $user, 'appinfo'=> $appinfo]); 
     }
     
+    //応募への承認およびメンバー追加処理
     public function approval(BandProfile $band, UserProfile $user) {
         $members = $band->user_profiles()->get();
         $band-> user_profiles()-> detach();
@@ -87,7 +99,6 @@ class BandProfileController extends Controller
         $recruit = $band-> recruitment()->first();
         $recruit-> user_profiles()-> detach($user->id); //応募の削除処理
         return redirect()->route('applist', ['band'=> $band->id]);  //処理成功未確認 とりあえず主な処理は成功したのでデバッグ中に確かめるべし
-        
     }
     
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table-> id();
             $table-> foreignID('user_profile_id')-> constrained('user_profiles');
             $table-> foreignID('band_profile_id')-> constrained('band_profiles');
+            $table-> foreignID('instrument_id')-> constrained('instruments');
             $table-> string('title');
             $table-> string('message');
             $table-> timestamps();

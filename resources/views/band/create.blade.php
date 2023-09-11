@@ -9,7 +9,7 @@
     </head>
     
     <body>
-       <p1>バンド作成</p1>
+       <h1>バンド作成</h1>
        <form action="{{ route('bandstore') }}" method="POST" >
         @csrf
             <div class="name">

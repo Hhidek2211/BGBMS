@@ -17,7 +17,11 @@ class Instrument extends Model
         return $this-> belongsToMany(Recruitment::class);
     }
     
-    public function instruments() {
+    public function scouts() {
+        return $this-> hasMany(Scout::class);
+    }
+    
+    public function applications() {
         return $this-> hasMany(Application::class);
     }
     

@@ -12,7 +12,8 @@ use App\Http\Requests\UserUpdateRequest;
 
 class UserProfileController extends Controller
 {
-    
+//<トップメニュー>
+    //移動処理
     public function top(){
         $user = UserProfile::where('user_id', \Auth::user()->id)-> first();
         //dd($user);
@@ -22,20 +23,24 @@ class UserProfileController extends Controller
         return view('menu.top')-> with(['user'=> $user]);
     }
     
+//<ユーザーに関する機能の処理>
+    //ユーザー作成画面への移動
     public function create(Instrument  $instruments) {
         $user = \Auth::user();
         return view('user.create')-> with(['user'=> $user, 'instruments'=> $instruments-> get()]); 
     }
     
+    //作成したユーザーの保存
     public function store(UserRequest $request, UserProfile $prof) {
         $input_user = $request['edituser'];
-        $input_instrument = $request['instrument'];
+        $input_instrument = $request['instruments'];
         
         $prof-> fill($input_user)-> save();
         $prof-> instruments()-> attach($input_instrument);
         return redirect()-> route('top');
     }
     
+    //ユーザープロフィール編集画面への移動
     public function edit(UserProfile $user, Instrument $instrument) {
         $userinsts = $user-> instruments()-> get();
         $userinstids = array_column($userinsts-> toArray(), 'id');
@@ -43,6 +48,7 @@ class UserProfileController extends Controller
         return view('user.edit')-> with(['user'=> $user, 'instruments'=> $instrument-> get(), 'userinstids'=> $userinstids]);
     }
     
+    //編集内容の保存
     public function update(UserUpdateRequest $request, UserProfile $user) {
         $update_user = $request['edituser'];
         $update_instrument = $request['instrument'];
@@ -53,6 +59,7 @@ class UserProfileController extends Controller
         return redirect()-> route('top');
     }
     
+    //自分のバンド一覧への移動
     public function bandlist(UserProfile $user) {
         $userbands = $user-> band_profiles()-> get();
         //dd($userbands);
@@ -81,6 +88,7 @@ class UserProfileController extends Controller
         $band-> user_profiles()-> detach();
         $band-> user_profiles()-> attach($members);
         $band-> user_profiles()-> attach($user->id);
+        $scout-> delete();      //承認したスカウトの削除
         return redirect()-> route('top');
     }
 }
