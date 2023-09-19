@@ -10,7 +10,7 @@ class BandProfile extends Model
     use HasFactory;
     
     public function user_profiles(){        //バンド作成関連
-        return $this -> belongsToMany(UserProfile::class)->withPivot('user_profile_id');
+        return $this -> belongsToMany(UserProfile::class, 'members')->withPivot('user_profile_id');
     }
     
     public function recruitment(){

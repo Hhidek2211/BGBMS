@@ -15,7 +15,7 @@ class UserProfile extends Model
     }
     
     public function band_profiles(){
-        return $this -> belongsToMany(BandProfile::class);
+        return $this -> belongsToMany(BandProfile::class, 'members');
     }
     
     public function instruments(){

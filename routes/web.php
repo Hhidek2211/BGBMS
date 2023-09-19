@@ -49,6 +49,7 @@ Route::controller(UserProfileController::class)->group(function(){
 
 Route::controller(BandProfileController::class)->group(function(){
     Route::get('/band/create', 'create')->name('bandcreate');
+    Route::post('/band/create/userinst', 'getuserinst')->name('getuserinst');
     Route::post('/band/create/store', 'store')->name('bandstore');
     Route::get('/band/{band}', 'bandpage')->name('bandpage');
     Route::get('/band/{band}/edit', 'edit')->name('bandedit');
