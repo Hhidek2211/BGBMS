@@ -35,7 +35,7 @@ class ScoutController extends Controller
     
     //選んだユーザーの詳細表示
     public function detail(BandProfile $band, UserProfile $user) {
-        $user = $user->with('instruments')-> find($user->id);
+        $user = $user-> with('instruments')-> find($user->id);
         //dd($user);
         return view('scout.detail')-> with(compact('band', 'user'));
     }

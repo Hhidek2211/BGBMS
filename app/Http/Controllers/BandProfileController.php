@@ -15,7 +15,13 @@ class BandProfileController extends Controller
     //バンド作成画面への変遷
     public function create(){
         $users = Userprofile::with('instruments')-> get();
-        return view("band.create")->with(['users'=> $users]);
+        return view("band.create")-> with(['users'=> $users]);
+    }
+    
+    //選択したユーザーの登録している楽器を取得
+    public function getuserinst(Request $request) {
+        $userid = $request->value;
+        dump($userid);
     }
     
     //バンド作成処理
@@ -23,7 +29,7 @@ class BandProfileController extends Controller
         $input_prof = $request['editband'];
         $input_member = $request-> bandmember;
         //dd($input_prof);
-        dd($input_member);
+        //dd($input_member);
         foreach($input_member as $key => $value)   //未入力値の削除
             if($value == ""){
                 unset($input_member[$key]);
@@ -70,7 +76,7 @@ class BandProfileController extends Controller
     //応募一覧への移動
     public function applist(BandProfile $band) {     //recruitment機能の側面も持つ　募集に対する応募への返答 最終的に当テーブルの持つuser_profilesリレーションを使って値を挿入するためこちらに実装 
         $recruit = $band-> recruitment()-> first();
-        $appinfos = $recruit-> applications()->with(['instrument','user_profile'])-> get();
+        $appinfos = $recruit-> applications()-> with(['instrument','user_profile'])-> get();
         //dd($recruit, $appinfos);
         return view('band.applist')->with(['appinfos'=> $appinfos, 'band'=> $band]);
     }
@@ -78,7 +84,7 @@ class BandProfileController extends Controller
     //応募の詳細画面
     public function appdetail(BandProfile $band, UserProfile $user) {   //applicationが固有idを持たないため、UserProfile経由でappinfoを取得する。
         $recruit = $band-> recruitment()-> first();
-        $user = $user->with('instruments')->find($user->id);    //  メモ：定義済みインスタンスにリレーション先の情報を書き込むことが出来た例。findでできてしまった。さすがにlaravelが有能といわざるを得ない。
+        $user = $user-> with('instruments')-> find($user->id);    //  メモ：定義済みインスタンスにリレーション先の情報を書き込むことが出来た例。findでできてしまった。さすがにlaravelが有能といわざるを得ない。
         $appinfo = Application::with('instrument')
                 -> where('user_profile_id', $user->id)
                 -> where('recruitment_id', $recruit->id)
@@ -89,7 +95,7 @@ class BandProfileController extends Controller
     
     //応募への承認およびメンバー追加処理
     public function approval(BandProfile $band, UserProfile $user) {
-        $members = $band->user_profiles()->get();
+        $members = $band-> user_profiles()-> get();
         $band-> user_profiles()-> detach();
         //dd($band);  //このダンプを使うとメンバー情報を消せる（なぜかバグってsyntaxエラーになる）
         $band-> user_profiles()-> attach($user);  //ユーザーの追加処理 ここまでの処理ですでにメンバーとして登録済みのユーザーがここに来れない前提で組んでいるため要対策

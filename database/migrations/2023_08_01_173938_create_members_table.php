@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('band_profile_user_profile', function (Blueprint $table) {
+        Schema::create('members', function (Blueprint $table) {
             $table->foreignId('band_profile_id')->constrained('band_profiles');
             $table->foreignId('user_profile_id')->constrained('user_profiles');
             $table->primary(['band_profile_id','user_profile_id']);
+            $table->foreignId('instrument_id')->nullable(true)->constrained('instruments');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('band_profile_user_profile');
+        Schema::dropIfExists('members');
     }
 };
