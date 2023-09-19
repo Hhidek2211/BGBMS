@@ -15,6 +15,6 @@ class LineAPIController extends Controller
         $bot->replyText($event['replyToken'], $event['message']['text']);
     });
     return 'ok!';
-}
     }
+    
 }
