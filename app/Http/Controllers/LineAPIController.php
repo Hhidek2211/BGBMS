@@ -10,7 +10,7 @@ class LineAPIController extends Controller
 {
     public function index(Request $request) use ($bot) {
     
-    $httpClient = new CurlHTTPClient($_ENV['LINE_CHANNEL_ACCESS_TOKEN']);
+    $httpClient = new CurlHTTPClient($_ENV['LINE_ACCESS_TOKEN']);
     $bot = new LINEBot($httpClient, ['channelSecret' => $_ENV['LINE_CHANNEL_SECRET']]);
         
     $request->collect('events')->each(function ($event) use ($bot) {

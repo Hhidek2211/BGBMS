@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
- $httpClient = new CurlHTTPClient($_ENV['LINE_CHANNEL_ACCESS_TOKEN']);
+ $httpClient = new CurlHTTPClient($_ENV['LINE_ACCESS_TOKEN']);
  $bot = new LINEBot($httpClient, ['channelSecret' => $_ENV['LINE_CHANNEL_SECRET']]);
 
  Route::post('/webhook', function (Request $request) use ($bot) {
@@ -32,4 +32,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  
 //Route::controller(LineAPIController::class)->group(function(){
 //    Route::post('/webhook', 'index')-> name('test');
-}); 
+//}); 
