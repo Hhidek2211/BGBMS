@@ -8,7 +8,7 @@ use LINE\LINEBot;
 
 class LineAPIController extends Controller
 {
-    public function index(Request $request) use ($bot) {
+    public function index(Request $request LINEBot $bot): JsonResponse {
     
     $httpClient = new CurlHTTPClient($_ENV['LINE_ACCESS_TOKEN']);
     $bot = new LINEBot($httpClient, ['channelSecret' => $_ENV['LINE_CHANNEL_SECRET']]);

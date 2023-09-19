@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/* 成功例
  $httpClient = new CurlHTTPClient($_ENV['LINE_ACCESS_TOKEN']);
  $bot = new LINEBot($httpClient, ['channelSecret' => $_ENV['LINE_CHANNEL_SECRET']]);
 
@@ -29,7 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
      });
      return 'ok!';
  });
- 
-//Route::controller(LineAPIController::class)->group(function(){
-//    Route::post('/webhook', 'index')-> name('test');
-//}); 
+*/
+
+Route::controller(LineAPIController::class)-> group(function(){
+    Route::post('/webhook', 'index')-> name('test');
+}); 
