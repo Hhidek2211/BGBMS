@@ -10,7 +10,7 @@ class LineAPIController extends Controller
 {
     public function index(Request $request) {
         
-    dd($request);
+    dump($request);
     return "ok";
     
     }
