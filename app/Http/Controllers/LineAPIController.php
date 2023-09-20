@@ -8,9 +8,9 @@ use LINE\LINEBot;
 
 class LineAPIController extends Controller
 {
-    public function index(Request $request LINEBot $bot): JsonResponse {
+    public function index(Request $request, LINEBot $bot) {
     
-    return response()->json('success');
+    return "ok";
     
     }
     

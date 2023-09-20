@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
      });
      return 'ok!';
  });
+ 
 */
 
 Route::controller(LineAPIController::class)-> group(function(){
