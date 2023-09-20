@@ -9,7 +9,8 @@ use LINE\LINEBot;
 class LineAPIController extends Controller
 {
     public function index(Request $request) {
-    
+        
+    dd($request);
     return "ok";
     
     }
