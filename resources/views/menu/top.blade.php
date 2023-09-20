@@ -15,6 +15,7 @@
        <a href="{{ route('bandlist', ['user'=> $user->id]) }}">あなたのバンド</a><br>
        <a href="{{ route('recruitmentlist') }}">現在の募集一覧</a><br>
        <a href="{{ route('scout_list', ['user'=> $user->id])}}">あなたへのスカウト一覧</a>
+       <a href="{{ route('line_test')}}">テスト</a>
     </body>
 </html>
 

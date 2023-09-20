@@ -35,5 +35,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 */
 
 Route::controller(LineAPIController::class)-> group(function(){
-    Route::post('/line/webhook', 'index')-> name('test');
+    Route::post('/line/webhook', 'index')-> name('line_test');
 }); 
