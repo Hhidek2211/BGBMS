@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LineAPIController;
+use App\Http\Controllers\LineLoginController;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
 
@@ -35,5 +36,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 */
 
 Route::controller(LineAPIController::class)-> group(function(){
-    Route::post('/line/webhook', 'index')-> name('line_test');
+    Route::post('/line/webhook', 'processingBranch')-> name('line_branch');
+    Route::get('/line/text', 'replyText')-> name('line_text');
+    Route::get('/line/follow', 'replyFollow')-> name('line_follow');
 }); 
+
+Route::controller(LineLoginController::class)-> group(function(){
+    Route::get("/line/login", "showLoginForm")-> name('line_loginStart');
+    Route::post('/line/login', 'login')-> name('line_login');
+});

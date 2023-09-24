@@ -14,9 +14,12 @@ class UserProfileController extends Controller
 {
 //<トップメニュー>
     //移動処理
-    public function top(){
+    public function top(Request $request){
         $user = UserProfile::where('user_id', \Auth::user()->id)-> first();
         //dd($user);
+        session()-> push('usersRegistering', 'test');
+        $test = session('usersRegistering');
+        dd($test);
         if(is_null($user)) {
             return redirect()-> route('usercreate');
         }
