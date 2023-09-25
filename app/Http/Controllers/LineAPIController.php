@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
@@ -24,19 +25,20 @@ class LineAPIController extends Controller
             if (array_key_exists('message', $inputs['events'][0])) {
                 $requestTypes = $inputs['events'][0]['message']['type']; //一度のリクエストに含まれるイベントは複数含まれる前提
           } else {
-                $requestTypes = 'ほげ';    
+                $requestTypes = 'hoge';    
             }
             $replyToken = $inputs['events'][0]['replyToken'];
             $lineUserId = $inputs['events'][0]['source']['userId'];
         } 
         
         //アカウント認証後の処理（認証成功のメッセージ）
-        if (array_key_exists('link', $inputs['events'][0])) { 
-            $result = $inputs['events'][0]['link']['result'];
-            if ($inputs['events'][0]['link']['result'] == "ok") {
-                $this->saveAccount($inputs, $lineUserId);
-                $replyMessage = '認証に成功しました！';
-            }}
+        if ($requestTypes != 'hoge') {
+            if (array_key_exists('link', $inputs['events'][0])) { 
+                $result = $inputs['events'][0]['link']['result'];
+                if ($inputs['events'][0]['link']['result'] == "ok") {
+                    $this->saveAccount($inputs, $lineUserId);
+                    $replyMessage = '認証に成功しました！';
+            }}}
         
         //アカウント認証以外の処理
         switch ($requestTypes) {    //送られてきたJsonが含むイベント属性によって処理を分岐、返信したいものでなければステータス200を返す
@@ -45,7 +47,7 @@ class LineAPIController extends Controller
                 if($textContent == "連携") {
                     $this-> coopAccountStart($replyToken, $lineUserId, $bot, $httpClient);
               } else {
-                    $replyMessage = 'てすてす';
+                    $replyMessage = '機能はまだまだ増えるよ！…たぶんだけど';
                 }
                 break;
             case 'follow' : //登録時にアカウント連携するよう促す
@@ -93,5 +95,19 @@ class LineAPIController extends Controller
         $saveLineUser->update([
             "line_userid" => $lineUserId
         ]);
+    }
+    
+    //プッシュメッセージの送信
+    public function sendPushMessage($userid, $pushMessage) {
+        $lineUser = Lineapi::where('user_id', $userid)-> first();
+        $httpClient = new CurlHTTPClient(config('services.line.channel_token'));   //設定らしい
+        $bot = new LINEBot($httpClient, ['channelSecret' => config('services.line.messenger_secret')]);
+        
+        //dd($lineUser);
+        if(!is_null($lineUser)) {
+        $textMessageBuilder = new TextMessageBuilder($pushMessage);
+        $push = $bot-> pushMessage($lineUser->line_userid, $textMessageBuilder);
+        }
+        return redirect()-> route('top');   //ここにリダイレクト処理を書かざるを得なくなったのだけ残念
     }
 }

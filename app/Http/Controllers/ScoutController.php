@@ -7,7 +7,10 @@ use App\Models\UserProfile;
 use App\Models\BandProfile;
 use App\Models\Instrument;
 use App\Models\Scout;
+use App\Models\User;
 use App\Http\Requests\ScoutRequest;
+use App\Http\Controllers\LineAPIController;
+
 
 class ScoutController extends Controller
 {
@@ -55,6 +58,21 @@ class ScoutController extends Controller
         $input['instrument_id'] = (int)$input['instrument_id'];
         //dump($input);
         $scout-> fill($input)-> save();
-        return redirect()-> route('top');
+        
+        //Line通知処理
+        list($userid, $pushMessage) = $this-> makePushMessage($scout);
+        return redirect()-> route('line_pushMessage', ['userid'=> $userid, 'pushMessage'=> $pushMessage]);
+    }
+    
+    //スカウトされた旨を伝えるプッシュメッセージ文及び対象ユーザーの取得
+    public function makePushMessage($scout) {
+        $userProf = UserProfile::find($scout->user_profile_id);
+        $userid = User::find($userProf->user_id);
+        $band = BandProfile::find($scout->band_profile_id);
+        $pushMessage = "{$band->name}さんからスカウトが届いています！";     //いずれはここにURL乗っけたいところ
+        //dd($userProf, $userid, $band, $pushMessage);
+        
+        //メモ　リダイレクトが作用していない模様。
+        return array($userid, $pushMessage);
     }
 }
