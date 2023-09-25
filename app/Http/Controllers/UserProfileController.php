@@ -17,9 +17,6 @@ class UserProfileController extends Controller
     public function top(Request $request){
         $user = UserProfile::where('user_id', \Auth::user()->id)-> first();
         //dd($user);
-        session()-> push('usersRegistering', 'test');
-        $test = session('usersRegistering');
-        dd($test);
         if(is_null($user)) {
             return redirect()-> route('usercreate');
         }

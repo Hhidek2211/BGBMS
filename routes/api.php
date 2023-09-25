@@ -39,6 +39,7 @@ Route::controller(LineAPIController::class)-> group(function(){
     Route::post('/line/webhook', 'processingBranch')-> name('line_branch');
     Route::get('/line/text', 'replyText')-> name('line_text');
     Route::get('/line/follow', 'replyFollow')-> name('line_follow');
+    Route::get('/line/pushMessage/{userid}/{pushMessage}', 'sendPushMessage')-> name('line_pushMessage');   //どうしても変数が受け渡しできずルーティングに直接記入するハメになっている。これは直したい。
 }); 
 
 Route::controller(LineLoginController::class)-> group(function(){

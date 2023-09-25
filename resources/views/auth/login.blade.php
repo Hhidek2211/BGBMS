@@ -4,7 +4,7 @@
     @if(empty($linkToken))
         <form method="POST" action="{{ route('login') }}">  {{-- ライン連携でない場合　→　通常ログイン--}}
     @else
-        <form method="POST" action="{{ route('line_login', ['linkToken'=> $linkToken]) }}">
+        <form method="POST" action="{{ route('line_login', ['linkToken'=> $linkToken]) }}"> {{-- Line連携の時　→　連携処理にリダイレクト--}}
     @endif
         @csrf
 
