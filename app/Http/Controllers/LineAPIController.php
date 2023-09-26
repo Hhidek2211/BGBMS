@@ -24,6 +24,8 @@ class LineAPIController extends Controller
     }   else {
             if (array_key_exists('message', $inputs['events'][0])) {
                 $requestTypes = $inputs['events'][0]['message']['type']; //一度のリクエストに含まれるイベントは複数含まれる前提
+          } elseif (array_key_exists('link', $inputs['events'][0])) {
+                $requestTypes = 'certification';
           } else {
                 $requestTypes = 'hoge';    
             }
@@ -32,13 +34,11 @@ class LineAPIController extends Controller
         } 
         
         //アカウント認証後の処理（認証成功のメッセージ）
-        if ($requestTypes != 'hoge') {
-            if (array_key_exists('link', $inputs['events'][0])) { 
-                $result = $inputs['events'][0]['link']['result'];
-                if ($inputs['events'][0]['link']['result'] == "ok") {
-                    $this->saveAccount($inputs, $lineUserId);
-                    $replyMessage = '認証に成功しました！';
-            }}}
+        if ($requestTypes == 'certification') {
+            if ($inputs['events'][0]['link']['result'] == "ok") {
+                $replyMessage = '認証に成功しました！';
+                $this->saveAccount($inputs, $lineUserId);
+        }}
         
         //アカウント認証以外の処理
         switch ($requestTypes) {    //送られてきたJsonが含むイベント属性によって処理を分岐、返信したいものでなければステータス200を返す
@@ -54,7 +54,6 @@ class LineAPIController extends Controller
                 $replyMessage ="ご登録ありがとうございます！\nまずはBGBMSでお使いのメアドを登録してください！\nチャットに「連携」と入力をお願いします！";
                 break;
             default :   //上記以外に対してはとりあえず値を返す
-                return 'OK';
                 break;
         }        
         $reply= $bot-> replyText($replyToken, $replyMessage);
