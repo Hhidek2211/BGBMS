@@ -33,13 +33,6 @@ class LineAPIController extends Controller
             $lineUserId = $inputs['events'][0]['source']['userId'];
         } 
         
-        //アカウント認証後の処理（認証成功のメッセージ）
-        if ($requestTypes == 'certification') {
-            if ($inputs['events'][0]['link']['result'] == "ok") {
-                $replyMessage = '認証に成功しました！';
-                $this->saveAccount($inputs, $lineUserId);
-        }}
-        
         //アカウント認証以外の処理
         switch ($requestTypes) {    //送られてきたJsonが含むイベント属性によって処理を分岐、返信したいものでなければステータス200を返す
             case 'text' :   //分岐は２パターン　１. 「連携」と入力して連携リンクを送信　３. 何でもないときの適当な返信
@@ -53,7 +46,14 @@ class LineAPIController extends Controller
             case 'follow' : //登録時にアカウント連携するよう促す
                 $replyMessage ="ご登録ありがとうございます！\nまずはBGBMSでお使いのメアドを登録してください！\nチャットに「連携」と入力をお願いします！";
                 break;
+            case 'certification' :  //アカウント認証後の保存処理&メッセージ
+                if ($inputs['events'][0]['link']['result'] == "ok") {
+                $replyMessage = '認証に成功しました！';
+                $this->saveAccount($inputs, $lineUserId);
+                }
+                break;
             default :   //上記以外に対してはとりあえず値を返す
+                return 'ok';
                 break;
         }        
         $reply= $bot-> replyText($replyToken, $replyMessage);
