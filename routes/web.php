@@ -37,18 +37,18 @@ require __DIR__.'/auth.php';
 
 Route::controller(UserProfileController::class)->group(function(){
     Route::get('/top', 'top')-> name('top');    //RouteServiceProviderに直接ルートを書いているので変更時は当該ファイルも要確認
-    Route::get('/user/create', 'create') -> name('usercreate');
-    Route::post('/user/create/store', 'store') ->name('userstore');
-    Route::get('/user/{user}/edit', 'edit') ->name('useredit');
-    Route::put('/user/{user}/edit/update', 'update')->name('userupdate');
-    Route::get('/user/{user}/band/list', 'bandlist')->name('bandlist');
+    Route::get('/user/create', 'create') -> name('user_create');
+    Route::post('/user/create/store', 'store') ->name('user_store');
+    Route::get('/user/{user}/edit', 'edit') ->name('user_edit');
+    Route::put('/user/{user}/edit/update', 'update')->name('user_update');
+    Route::get('/user/{user}/band/list', 'bandlist')->name('band_list');
     Route::get('/user/{user}/scout/list', 'scoutlist')->name('scout_list'); // ユーザー機能の中でスカウトを確認するためuserprofileconrollerに実装
     Route::get('/user/{user}/scout/{scout}', 'scoutdetail')->name('scout_detail');
     Route::put('/user/{user}/scout/{scout}/approve', 'scoutapprove')->name('scout_approve');
 });
 
 Route::controller(BandProfileController::class)->group(function(){
-    Route::get('/band/create', 'create')->name('bandcreate');
+    Route::get('/band/create', 'create')->name('band_create');
     Route::post('/band/create/userinst', 'getuserinst')->name('getuserinst');
     Route::post('/band/create/store', 'store')->name('bandstore');
     Route::get('/band/{band}', 'bandpage')->name('bandpage');
@@ -62,7 +62,7 @@ Route::controller(BandProfileController::class)->group(function(){
 Route::controller(RecruitmentController::class)->group(function(){
     Route::get('/band/{band}/recruitment/create', 'create')->name('recruitmentcreate');
     ROute::post('/band/{band}/recruitment/create/store', 'store')->name('recruitmentstore');
-    Route::get('/recruitment/list', 'Recruitlist')->name('recruitmentlist');
+    Route::get('/recruitment/list', 'Recruitlist')->name('recruitment_list');
     Route::get('/recruitment/list/{recruit}', 'detail')->name('recruitdetail');
     Route::get('/recruitment/{recruit}/form', 'appform')->name('appform');
     Route::post('/recruitment/{recruit}/app', 'application')->name('application');

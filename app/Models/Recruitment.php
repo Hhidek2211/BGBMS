@@ -27,6 +27,32 @@ class Recruitment extends Model
         return $this-> hasMany(Application::class);
     }
     
+    //Recruitment基準のsortRecruitBands(BandProfileのメソッド)
+    public function sortIndicateRecords() {
+        $user = UserProfile::first()-> getUserInfo();
+        $userbands = $user-> band_profiles()-> select('id')-> get()-> toArray();
+        $userbands = array_column($userbands, 'id');    //ユーザーが所属しているバンドを除外
+        //dd($userbands);
+        return $this-> with('band_profile')
+                    -> whereHas('band_profile', function($q) use($userbands) {
+                        $q-> whereNotIn('id', $userbands);
+                    })
+                    -> get();
+    }
+    
+    public function sortIndicateRecordsWithLimit($limit) {
+        $user = UserProfile::first()-> getUserInfo();
+        $userbands = $user-> band_profiles()-> select('id')-> get()-> toArray();
+        $userbands = array_column($userbands, 'id');    //ユーザーが所属しているバンドを除外
+        //dd($userbands);
+        return $this-> with('band_profile')
+                    -> whereHas('band_profile', function($q) use($userbands) {
+                        $q-> whereNotIn('id', $userbands);
+                    })
+                    -> limit($limit)
+                    -> get();
+    }
+    
     protected $fillable = [
         'title',
         'message',

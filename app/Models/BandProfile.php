@@ -28,13 +28,12 @@ class BandProfile extends Model
         
     public function sortRecruitBands () {
         $user = UserProfile::first()-> getUserInfo();
-        //d($user);
+        $userbands = $user-> band_profiles()-> select('id')-> get()-> toArray();
+        $userbands = array_column($userbands, 'id');    //ユーザーが所属しているバンドを除外
+        //dd($userbands);
         return $this-> with('recruitment')
                     -> whereNotNull('recruitment_id')
-                    -> whereHas('user_profiles', function($q) use($user) {
-                        $q-> where('id', '!=', $user->id);
-                    })
+                    -> whereNotIn('id', $userbands)
                     -> get();
     }
-    
 }
