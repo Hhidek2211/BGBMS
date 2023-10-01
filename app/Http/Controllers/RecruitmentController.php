@@ -26,7 +26,7 @@ class RecruitmentController extends Controller
         $recruitid = $recruit->id;  //募集を作成したバンドのidを取得、該当idを持つレコードのrecruitment_idを上書き
         $band-> recruitment_id = $recruitid;
         $band-> save();
-        return redirect('/menu/top');
+        return redirect()-> route('top');
     }
     
     public function Recruitlist(Recruitment $recruit, BandProfile $band) {

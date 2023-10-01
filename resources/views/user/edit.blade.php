@@ -10,7 +10,7 @@
     
     <body>
         <p1>ユーザープロフィール編集</p1>
-       <form action="{{ route('userupdate', ['user'=> $user->id]) }}" method="POST">
+       <form action="{{ route('user_update', ['user'=> $user->id]) }}" method="POST">
         @csrf
         @method('PUT')
         <nobr>

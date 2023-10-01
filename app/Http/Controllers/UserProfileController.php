@@ -7,6 +7,7 @@ use App\Models\UserProfile;
 use App\Models\BandProfile;
 use App\Models\Instrument;
 use App\Models\Scout;
+use App\Models\Recruitment;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserUpdateRequest;
 
@@ -16,11 +17,14 @@ class UserProfileController extends Controller
     //移動処理
     public function top(Request $request){
         $user = UserProfile::where('user_id', \Auth::user()->id)-> first();
-        //dd($user);
         if(is_null($user)) {
-            return redirect()-> route('usercreate');
+            return redirect()-> route('user_create');
         }
-        return view('menu.top')-> with(['user'=> $user]);
+        $bands = $user-> band_profiles()-> limit(10)-> get(); 
+        $scouts = Scout::with('band_profile')-> where('user_profile_id', $user->id)-> limit(10)-> get();
+        $recruitments = new Recruitment;
+        $recruitments = $recruitments-> sortIndicateRecordsWithLimit(5);
+        return view('menu.top')-> with(compact(['user', 'bands', 'scouts', 'recruitments']));
     }
     
 //<ユーザーに関する機能の処理>

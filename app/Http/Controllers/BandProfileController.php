@@ -74,6 +74,7 @@ class BandProfileController extends Controller
     
 //<応募への承認機能についての処理>
     //応募一覧への移動
+    //既知のバグ：応募を作成していないときにapplicationsがnullとしてエラーになる
     public function applist(BandProfile $band) {     //recruitment機能の側面も持つ　募集に対する応募への返答 最終的に当テーブルの持つuser_profilesリレーションを使って値を挿入するためこちらに実装 
         $recruit = $band-> recruitment()-> first();
         $appinfos = $recruit-> applications()-> with(['instrument','user_profile'])-> get();
