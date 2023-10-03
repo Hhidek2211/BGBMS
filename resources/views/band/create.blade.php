@@ -20,41 +20,52 @@
  --}}
  
     <body>
-       <h1>バンド作成</h1>
-       <form action="{{ route('bandstore') }}" method="POST" >
-        @csrf
-            <div class="name">
-             <h2>バンド名</h2>
-             <input type="text" name="editband[name]" value="{{ old('editband.name') }}">
-             <p class="error_name" style="color:red">{{ $errors->first('editband.name') }}</p>
-            </div>
+        <div class="w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">
+            バンド作成
+        </div>
+        <div class="container w-4/5 mx-auto text-center border border-4 border-gray-300 rounded-xl bg-white">
+            <form action="{{ route('bandstore') }}" method="POST" >
+            @csrf
+                <div id="name" class="mx-4 my-3 text-left">
+                    <h2 class="text-lg">バンド名</h2>
+                    <p class="text-sm text-gray-500">既存のバンドと同じ名前は使えません</p>
+                    <input class="w-full" type="text" name="editband[name]" value="{{ old('editband.name') }}">
+                    <p class="error_name" style="color:red">{{ $errors->first('editband.name') }}</p>
+                </div>
+                
+                <div class="flex mx-4 my-3 space-x-4">
+                    <div id="member" class="w-1/4 text-left">
+                        <h2 class="text-lg">メンバー</h2>
+                        <p class="text-sm text-gray-500">バンドメンバーと担当楽器を選択</p>
+                        @for ($i = 0; $i < 6; $i++)
+                            <p class="whitespace-nowrap">
+                                <select class="w-3/4" name="bandmember[{{$i}}]" id="{{$i}}">
+                                @if($i == 0)
+                                    <option value="{{ $loginuser->id }}">{{ $loginuser->name }}</option>
+                                 @else
+                                    <option value="">未指定</option>
+                                    @foreach($users as $user)
+                                        <option value="{{ $user->id }}" name="memberid">{{ $user->name }}</option>
+                                    @endforeach
+                                @endif
+                                </select>
+                                <select class="w-1/4" name="memberinst[{{$i}}]" class="memberinst">
+                                </select>
+                            </p>
+                        @endfor
+                        <p class="error_member" style="color:red">{{ $errors->first('bandmember') }}</p>
+                    </div>
             
-            <div class="member">
-            <h2>メンバー</h2>
-            @for ($i = 0; $i < 6; $i++)
-                <p>
-                 <select name="bandmember[{{$i}}]" id="{{$i}}">
-                  <option value="">未指定</option>
-                  @foreach($users as $user)
-                    <option value="{{ $user->id }}" name="memberid">{{ $user->name }}</option>
-                  @endforeach
-                 </select>
-                 <select name="memberinst[{{$i}}]" class="memberinst">
-                     
-                 </select>
-                </p>
-            @endfor
-                <p class="error_member" style="color:red">{{ $errors->first('bandmember') }}</p>
-            </div>
-            
-            <div class="introduction">
-             <h2>自己紹介</h2>
-             <textarea type="text" name="editband[introduction]" value="{{ old('editband.introduction') }}"></textarea>
-             <p class="error_introduction" style="color:red">{{ $errors->first('editband.introduction') }}</p>
-            </div>
-            
-            <input type="submit" value="store">
-       </form>
+                    <div class="w-3/4 text-left" id="introduction">
+                        <h2 class="text-lg">バンド紹介文</h2>
+                        <p class="text-sm text-gray-500">どんな曲をやるのか、バンドの雰囲気などを書いてみよう</p>
+                        <textarea class="w-full h-1/2" type="text" name="editband[introduction]" value="{{ old('editband.introduction') }}"></textarea>
+                        <p class="error_introduction" style="color:red">{{ $errors->first('editband.introduction') }}</p>
+                    </div>
+                </div>
+                <input class="pb-3 text-xl" type="submit" value="作成する">
+            </form>
+        </div>
 
         <script>
             $.ajaxSetup({

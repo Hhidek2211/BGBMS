@@ -15,7 +15,8 @@ class BandProfileController extends Controller
     //バンド作成画面への変遷
     public function create(){
         $users = Userprofile::with('instruments')-> get();
-        return view("band.create")-> with(['users'=> $users]);
+        $loginuser = new UserProfile;
+        return view("band.create")-> with(['users'=> $users, 'loginuser'=> $loginuser->getUserInfo()]);
     }
     
     //選択したユーザーの登録している楽器を取得

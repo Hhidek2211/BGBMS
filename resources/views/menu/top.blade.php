@@ -9,11 +9,11 @@
     </head>
     
     <body>
-        <div class="w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-2">
+        <div class="w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">
             マイメニュー
         </div>
-        <div class="flex flex-wrap justify-around text-center mx-auto my-4 w-1/2 space-x-8">
-            <div class="w-72 h-60 container border border-gray-300 border-4 bg-white rounded-xl">
+        <div class="flex flex-wrap justify-around text-center mx-auto my-4 w-1/2">
+            <div class="w-full md:w-1/3 h-60 container border border-gray-300 border-4 bg-white rounded-xl">
                 <a class="text-xl my-1" href="{{ route('band_list', ['user'=> $user->id]) }}">あなたのバンド</a>
                 <div class="flex flex-wrap my-2">
                     @foreach($bands as $band)
@@ -21,7 +21,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="w-72 h-60 container border border-gray-300 border-4 bg-white rounded-xl">
+            <div class="w-full md:w-1/3 h-60 container border border-gray-300 border-4 bg-white rounded-xl">
                 <a class="text-xl my-1" href="{{ route('scout_list', ['user'=> $user->id]) }}">あなたへのスカウト一覧</a>
                 <div class="flex flex-wrap my-2">
                     @foreach($scouts as $scout)
@@ -29,7 +29,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="w-72 h-60 container border border-gray-300 border-4 bg-white rounded-xl">
+            <div class="w-full md:w-1/3 h-60 container border border-gray-300 border-4 bg-white rounded-xl">
                 <a class="text-xl my-1" href="{{ route('recruitment_list') }}">現在の募集</a>
                 <div class="flex flex-wrap my-2">
                     @foreach($recruitments as $recruitment)
