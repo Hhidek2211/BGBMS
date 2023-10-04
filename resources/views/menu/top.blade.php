@@ -17,7 +17,7 @@
                 <a class="text-xl my-1" href="{{ route('band_list', ['user'=> $user->id]) }}">あなたのバンド</a>
                 <div class="flex flex-wrap my-2">
                     @foreach($bands as $band)
-                    <p class="w-2/4">{{ $band->name }}</p>
+                    <p class="w-2/4 h-1/5">{{ $band->name }}</p>
                     @endforeach
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <a class="text-xl my-1" href="{{ route('scout_list', ['user'=> $user->id]) }}">あなたへのスカウト一覧</a>
                 <div class="flex flex-wrap my-2">
                     @foreach($scouts as $scout)
-                    <p class="w-2/4">{{ $scout->band_profile->name }}</p>
+                    <p class="w-2/4 h-1/5">{{ $scout->band_profile->name }}</p>
                     @endforeach
                 </div>
             </div>
@@ -33,17 +33,14 @@
                 <a class="text-xl my-1" href="{{ route('recruitment_list') }}">現在の募集</a>
                 <div class="flex flex-wrap my-2">
                     @foreach($recruitments as $recruitment)
-                    <p class="w-full">{{ $recruitment->title }}</p>
+                    <p class="w-full h-1/5">{{ $recruitment->title }}</p>
                     @endforeach
                 </div>
             </div>
         </div>
-        <div class="w-1/2 text-center text-xl border border-gray-300 border-4 bg-white mx-auto my-2" href="{{ route('band_create') }}">
-            <a href="{{ route('band_create') }}">バンド作成</a><br>
-        </div>
-        <div class="w-1/2 text-center text-xl border border-gray-300 border-4 bg-white mx-auto my-2">
-            <a href="{{ route('user_edit', ['user'=> $user->id]) }}">プロフィール編集</a><br>
-        </div>
+        
+            <a class="block w-1/2 text-center text-xl border border-gray-300 border-4 bg-white mx-auto my-2" href="{{ route('band_create') }}">バンド作成</a>
+            <a class="block w-1/2 text-center text-xl border border-gray-300 border-4 bg-white mx-auto my-2" href="{{ route('user_edit', ['user'=> $user->id]) }}">プロフィール編集</a>
         {{-- <div class="container mx-auto my-4 border-2 border-gray-400 bg-white rounded-lg"> --}}
             
         </div>

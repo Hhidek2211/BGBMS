@@ -36,4 +36,12 @@ class BandProfile extends Model
                     -> whereNotIn('id', $userbands)
                     -> get();
     }
+    
+    public function sortExistOfRecruitment() {
+        if(is_null($this->recruitment_id)){
+            return false;
+      } else {
+            return true;  
+      }    
+    }
 }

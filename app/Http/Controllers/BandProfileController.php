@@ -46,7 +46,8 @@ class BandProfileController extends Controller
 //<バンドページからできる機能の処理>
     //バンドページへの移動
     public function bandpage(BandProfile $band) {
-        return view("band.bandpage")->with(['band'=> $band]);
+        $showApplistPageFlag = $band-> sortExistOfRecruitment();
+        return view("band.bandpage")->with(['band'=> $band, 'showApplistFlag'=> $showApplistPageFlag]);
     }
     
     //バンドプロフィール編集機能への移動
