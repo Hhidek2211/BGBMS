@@ -9,54 +9,69 @@
     </head>
     
     <body>
-        <p1>ユーザープロフィール編集</p1>
-       <form action="{{ route('user_update', ['user'=> $user->id]) }}" method="POST">
-        @csrf
-        @method('PUT')
-        <nobr>
-            <div class="name">
-             <h2>ユーザー名</h2>
-             <input type="text" name="edituser[name]" value="{{ $user->name }}">
-             <p class="error_name" style="color:red">{{ $errors->first('edituser.name') }}</p>
-            </div>
+        <div class="w-11/12 md:w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">
+            ユーザープロフィール編集
+        </div>
+        <div class="container w-4/5 mx-auto text-center border border-4 border-gray-300 rounded-xl bg-white">
+            <form action="{{ route('user_update', ['user'=> $user->id]) }}" method="POST">
+            @csrf
+            @method('PUT')
+                <div class="flex flex-wrap md:mx-20 my-3 text-left space-y-1 md:space-y-0">
+                    <div id="name" class="w-full mx-2 md:w-3/4 md:mr-1">
+                        <h2 class="text-lg">ユーザー名</h2>
+                        <p class="text-sm text-gray-500">ほかのユーザーに表示する名前です 本名を入力してください</p>
+                        <input class="w-full" type="text" name="edituser[name]" value="{{ $user->name }}">
+                        <p class="error_name" style="color:red">{{ $errors->first('edituser.name') }}</p>
+                    </div>
             
-            <div class="grade">
-             <h2>学年</h2>
-             <input type="number" name="edituser[grade]" value="{{ $user->grade }}">
-             <p class="error_grade" style="color:red">{{ $errors->first('edituser.grade') }}</p>
-            </div>
-        </nobr>
+                    <div id="grade" class="w-full mx-2 md:mr-1 md:w-1/5">
+                        <h2 class="text-lg">学年</h2>
+                        <p class="text-sm text-gray-500">半角数字で入力して下さい</p>
+                        <input class="w-full" type="number" name="edituser[grade]" value="{{ $user->grade }}">
+                        <p class="error_grade" style="color:red">{{ $errors->first('edituser.grade') }}</p>
+                    </div>
+                </div>
         
-            <div class="instrument">
-                <h2>楽器</h2>
-                @foreach ($instruments as $instrument)
-                {{--@php dd($instrument, $user, $inst) @endphp --}}
-                <lavel>
-                    @if ( in_array($instrument->id, $userinstids))      {{-- ユーザーが登録した楽器のみ初期選択状態にする --}}
-                    <input type="checkbox" value="{{ $instrument->id }}" name="instrument[]" checked>
-                            {{ $instrument->name }} 
-                    @else 
-                    <input type="checkbox" value="{{ $instrument->id }}" name="instrument[]">
-                            {{ $instrument->name}}
-                    @endif
-                </label>            
-                @endforeach
-                
-            </div>
+                <div class="flex flex-wrap md:mx-20 my-3 text-left space-y-1 md:space-y-0">
+                    <div id="instrument" class="w-full md:w-1/3 mx-2">
+                        <h2 class="text-lg">担当可能楽器</h2>
+                        <p class="text-sm text-gray-500 mb-1">担当できる、担当したい楽器を登録してください<br>スカウトに使用します</p>
+                        <div class="grid grid-cols-2 gap-x-2">
+                            @foreach ($instruments as $instrument)
+                                    @if ( in_array($instrument->id, $userinstids))      {{-- ユーザーが登録した楽器のみ初期選択状態にする --}}
+                                        <lavel>
+                                            <input type="checkbox" value="{{ $instrument->id }}" name="instrument[]" checked>
+                                                {{ $instrument->name_jp }}
+                                            </input>
+                                        </lavel>
+                                    @else 
+                                        <lavel>
+                                            <input type="checkbox" value="{{ $instrument->id }}" name="instrument[]">
+                                                {{ $instrument->name_jp }}
+                                            </input>
+                                        </lavel>
+                                    @endif
+                                </label>            
+                            @endforeach
+                        </div>
+                    </div>
             
-            <div class="introduction">
-             <h2>自己紹介</h2>
-             <input type="text" name="edituser[introduction]" value="{{ $user->introduction }}">
-             <p class="error_introduction" style="color:red">{{ $errors->first('edituser.introduction') }}</p>
-            </div>
+                    <div id="introduction" class="w-full md:w-3/5 mx-2">
+                        <h2 class="text-lg">自己紹介</h2>
+                        <p class="text-sm text-gray-500 mb-1">あなた自身のこと、好きな曲などを書きましょう（200字以内）</p>
+                        <textarea class="w-full h-5/6" type="text" name="edituser[introduction]" value="{{ $user->introduction }}"></textarea>
+                        <p class="error_introduction" style="color:red">{{ $errors->first('edituser.introduction') }}</p>
+                    </div>
+                </div>
             
-            <div class="id">
-                <input type="hidden" name="edituser[user_id]" value="{{$user->id}}" >
-                <p class="error_id" style="color:red">{{ $errors->first('edituser.user_id') }}</p>
-            </div>
+                <div id="id">
+                    <input type="hidden" name="edituser[user_id]" value="{{$user->id}}" >
+                    <p class="error_id" style="color:red">{{ $errors->first('edituser.user_id') }}</p>
+                </div>
             
-            <input type="submit" value="update">
-       </form>
+                <input class="mt-8 mb-3" type="submit" value="保存する">
+           </form>
+       </div>
     </body>
 </html>
 

@@ -10,7 +10,7 @@
     
     <body>
         <div id="userband">
-            <div class="w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">あなたのバンド</div>
+            <div class="w-11/12 md:w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">あなたのバンド</div>
             <div class="container w-full md:w-2/3 mx-auto text-center">
                 <div class="grid md:grid-cols-2 px-4 py-3 gap-x-3 gap-y-2">
                     @foreach($userbands as $band)

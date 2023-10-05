@@ -9,7 +9,7 @@
     </head>
     
     <body>
-      <h2 class="w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">{{ $band->name }}</h2>
+      <h2 class="w-11/12 md:w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">{{ $band->name }}</h2>
       <div class="container w-full md:w-3/5 mx-auto text-center border border-4 border-gray-300 rounded-xl bg-white px-3 py-3 pb-5">
         <p class="text-3xl mb-10">バンドメニュー</p>
         <div class="grid gap-y-2">

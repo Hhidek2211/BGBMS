@@ -9,10 +9,10 @@
     </head>
     
     <body>
-        <div class="w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">
+        <div class="w-11/12 md:w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">
             マイメニュー
         </div>
-        <div class="flex flex-wrap justify-around text-center mx-auto my-4 w-1/2">
+        <div class="flex flex-wrap md:flex-nowrap justify-around text-center mx-auto my-4 w-3/5 md:w-3/5 space-y-2 md:space-y-0 md:space-x-3">
             <div class="w-full md:w-1/3 h-60 container border border-gray-300 border-4 bg-white rounded-xl">
                 <a class="text-xl my-1" href="{{ route('band_list', ['user'=> $user->id]) }}">あなたのバンド</a>
                 <div class="flex flex-wrap my-2">
@@ -39,8 +39,8 @@
             </div>
         </div>
         
-            <a class="block w-1/2 text-center text-xl border border-gray-300 border-4 bg-white mx-auto my-2" href="{{ route('band_create') }}">バンド作成</a>
-            <a class="block w-1/2 text-center text-xl border border-gray-300 border-4 bg-white mx-auto my-2" href="{{ route('user_edit', ['user'=> $user->id]) }}">プロフィール編集</a>
+            <a class="block w-11/12 md:w-1/2 text-center text-xl border border-gray-300 border-4 bg-white mx-auto my-2" href="{{ route('band_create') }}">バンド作成</a>
+            <a class="block w-11/12 md:w-1/2 text-center text-xl border border-gray-300 border-4 bg-white mx-auto my-2" href="{{ route('user_edit', ['user'=> $user->id]) }}">プロフィール編集</a>
         {{-- <div class="container mx-auto my-4 border-2 border-gray-400 bg-white rounded-lg"> --}}
             
         </div>
