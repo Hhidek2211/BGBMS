@@ -20,7 +20,7 @@
  --}}
  
     <body>
-        <div class="w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">
+        <div class="w-11/12 md:w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">
             バンド作成
         </div>
         <div class="container w-4/5 mx-auto text-center border border-4 border-gray-300 rounded-xl bg-white">
@@ -33,8 +33,8 @@
                     <p class="error_name" style="color:red">{{ $errors->first('editband.name') }}</p>
                 </div>
                 
-                <div class="flex mx-4 my-3 space-x-4">
-                    <div id="member" class="w-1/4 text-left">
+                <div class="flex flex-wrap md:flex-nowrap mx-4 my-3 md:space-x-4 space-y-2 md:space-y-0">
+                    <div id="member" class="w-full md:w-1/4 text-left">
                         <h2 class="text-lg">メンバー</h2>
                         <p class="text-sm text-gray-500">バンドメンバーと担当楽器を選択</p>
                         @for ($i = 0; $i < 6; $i++)
@@ -56,10 +56,10 @@
                         <p class="error_member" style="color:red">{{ $errors->first('bandmember') }}</p>
                     </div>
             
-                    <div class="w-3/4 text-left" id="introduction">
+                    <div class="w-full md:w-3/4 text-left" id="introduction">
                         <h2 class="text-lg">バンド紹介文</h2>
                         <p class="text-sm text-gray-500">どんな曲をやるのか、バンドの雰囲気などを書いてみよう</p>
-                        <textarea class="w-full h-1/2" type="text" name="editband[introduction]" value="{{ old('editband.introduction') }}"></textarea>
+                        <textarea class="w-full h-32 md:h-1/2" type="text" name="editband[introduction]" value="{{ old('editband.introduction') }}"></textarea>
                         <p class="error_introduction" style="color:red">{{ $errors->first('editband.introduction') }}</p>
                     </div>
                 </div>

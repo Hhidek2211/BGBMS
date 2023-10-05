@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class BandRequest extends FormRequest
 {
@@ -20,7 +22,12 @@ class BandRequest extends FormRequest
     public function rules()
     {
         return [
-            'editband.name' => 'required|string|max:20|unique:band_profiles,name',
+            //dd($this['editband']['name']),
+            'editband.name' => ['required',
+                                'string',
+                                'max:20',
+                                Rule::unique('band_profiles','name')-> ignore($this['editband']['name'], 'name'),
+                                ],
             'editband.introduction' => 'required|string|max:200',
             'bandmember' => 'required',
         ];
