@@ -53,6 +53,22 @@ class Recruitment extends Model
                     -> get();
     }
     
+    public function getInfoForAppform($recruit, $user) {
+        $userinsts = UserProfile::find($user->id)-> instruments()-> get();  //ユーザーの保持する楽器レコード取得
+        $recruitinsts = Recruitment::find($recruit->id)-> instruments()->select('id')-> get()-> toArray();   
+        $recruitinstids = array_column($recruitinsts, 'id');//募集している楽器idの取得
+        
+        //dd($userinstids, $recruitinstids);
+        $matchinsts = array();    //募集-ユーザー間で共通する楽器検索
+        foreach ($userinsts as $userinst) {
+            if (in_array($userinst->id, $recruitinstids)) {
+                $matchinsts[] = $userinst; 
+            }    
+        }
+        //dd($user, $band, $recruit, $userinfo, $userinsts, $recruitinstids, $matchinsts); 
+        return $matchinsts;
+    }
+    
     protected $fillable = [
         'title',
         'message',

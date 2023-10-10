@@ -31,7 +31,7 @@ class BandProfile extends Model
         $userbands = $user-> band_profiles()-> select('id')-> get()-> toArray();
         $userbands = array_column($userbands, 'id');    //ユーザーが所属しているバンドを除外
         //dd($userbands);
-        return $this-> with('recruitment')
+        return $this-> with(['recruitment.instruments'])
                     -> whereNotNull('recruitment_id')
                     -> whereNotIn('id', $userbands)
                     -> get();

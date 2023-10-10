@@ -64,7 +64,6 @@ Route::controller(RecruitmentController::class)->group(function(){
     ROute::post('/band/{band}/recruitment/create/store', 'store')->name('recruitmentstore');
     Route::get('/recruitment/list', 'Recruitlist')->name('recruitment_list');
     Route::get('/recruitment/list/{recruit}', 'detail')->name('recruitdetail');
-    Route::get('/recruitment/{recruit}/form', 'appform')->name('appform');
     Route::post('/recruitment/{recruit}/app', 'application')->name('application');
     Route::delete('/recruitment/{recruit}/delete', 'delete')->name('recruitdelete');
 });

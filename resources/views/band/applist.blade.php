@@ -9,16 +9,26 @@
     </head>
     
     <body>
-        <div class="userband">
-         <h1>{{ $band->name }}さんの募集に対する応募</h1>
-         @foreach($appinfos as $appinfo)
-            <a href="{{ route('appdetail', ['band'=> $band->id, 'user'=> $appinfo->user_profile->name]) }}">{{ $appinfo->user_profile->name }}さん</a>
-            <p>応募楽器：{{ $appinfo->instrument->name }}</p>
-            <p>メッセージ：</p>
-            <p>{{ $appinfo->message }}</p>
-         @endforeach
-        </div>
+        <div id="userband">
+            <div class="w-11/12 md:w-1/2 text-center text-2xl text-white bg-blue-300 border-white border-2 rounded-full mx-auto my-4">
+                募集への応募一覧
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 justify-around w-10/12 md:w-3/5 mx-auto">
+            @foreach($appinfos as $appinfo)
+                <a class="container border border-4 border-gray-300 rounded-xl bg-white w-full h-56 mx-auto px-2 py-2" href="{{ route('appdetail', ['band'=> $band->id, 'user'=> $appinfo->user_profile->id]) }}">
+                    <div class="text-center display:inline-block ">
+                        <p class="text-xl">{{ $appinfo->user_profile->name }}
+                        <span class="text-sm">さん</span></p>
+                    </div>
+                    <p>応募楽器：{{ $appinfo->instrument->name_abb }}</p>
+                    <p>メッセージ：</p>
+                    <p>{{ $appinfo->message }}</p>
+                </a>
+            @endforeach
+            </div>
     </body>
 </html>
 
 </x-app-layout>
+
+
