@@ -30,33 +30,16 @@ class RecruitmentController extends Controller
     }
     
     public function Recruitlist(Recruitment $recruit, BandProfile $band) {
-        return view('recruitment.list')->with(['bands'=> $band-> sortRecruitBands(), 'recruits'=> $recruit-> get()]);  //$recruitsは募集の存在判定に利用
+        return view('recruitment.list')->with(['bands'=> $band-> sortRecruitBands(), 'insts'=> Instrument::get()]);  //$recruitsは募集の存在判定に利用
     }
     
-    public function detail(Recruitment $recruit) {
+    public function detail(Recruitment $recruit, UserProfile $user) {
         $insts = Recruitment::find($recruit->id)-> instruments()-> get();
         $band = BandProfile::where('recruitment_id', $recruit->id)-> first();
+        $user = $user->getUserInfo();
+        $matchInsts = $recruit->getInfoForAppform($recruit, $user);
         //dd($inst, $band, $recruit);
-        return view('recruitment.detail')->with(['insts'=>$insts, 'recruit'=> $recruit, 'band'=> $band]);
-    }
-    
-    public function appform(Recruitment $recruit, UserProfile $user) {
-        $userinfo = $user-> getUserInfo();      //コントローラーで使用するuserprofileのidを取得する(もうちょっとキレイにかけそうだなぁ)
-        $userinsts = UserProfile::find($userinfo->id)-> instruments()-> get();  //ユーザーの保持する楽器レコード取得
-        $band = BandProfile::where('recruitment_id', $recruit->id)-> first();
-        $recruitinsts = Recruitment::find($recruit->id)-> instruments()->select('id')-> get()-> toArray();   
-        $recruitinstids = array_column($recruitinsts, 'id');//募集している楽器idの取得
-        
-        //dd($userinstids, $recruitinstids);
-        $matchinsts = array();    //募集-ユーザー間で共通する楽器検索
-        foreach ($userinsts as $userinst) {
-            if (in_array($userinst->id, $recruitinstids)) {
-                $matchinsts[] = $userinst; 
-            }    
-        }
-        
-        //dd($user, $band, $recruit, $userinfo, $userinsts, $recruitinstids, $matchinsts); 
-        return view('recruitment.appform')-> with(['user'=> $user-> getUserInfo(), 'band'=> $band, 'recruit'=> $recruit, 'insts'=>$matchinsts]);
+        return view('recruitment.detail')->with(['insts'=>$insts, 'recruit'=> $recruit, 'band'=> $band, 'user'=> $user, 'matchInsts'=> $matchInsts]);
     }
     
     public function application(Recruitment $recruit, AppRequest $request) {
@@ -67,7 +50,7 @@ class RecruitmentController extends Controller
         //dd($input_string);
         
         $recruit-> user_profiles()-> attach($input['user_profile_id'], ['message'=>$input['message'], 'instrument_id'=>$input['appinstid'] ]);
-        return redirect('/menu/top'); 
+        return redirect()-> route('top'); 
     }
     
 }
