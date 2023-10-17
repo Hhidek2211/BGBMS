@@ -44,13 +44,6 @@
         {{-- <div class="container mx-auto my-4 border-2 border-gray-400 bg-white rounded-lg"> --}}
             
         </div>
-        
-            <a href="{{ route('user_create') }}">ユーザー情報作成</a><br>
-            <a href="{{ route('user_edit', ['user'=> $user->id]) }}">ユーザー情報編集</a><br>
-            <a href="{{ route('band_create') }}">バンド作成</a><br>
-            <a href="{{ route('band_list', ['user'=> $user->id]) }}">あなたのバンド</a><br>
-            <a href="{{ route('recruitment_list') }}">現在の募集一覧</a><br>
-            <a href="{{ route('scout_list', ['user'=> $user->id])}}">あなたへのスカウト一覧</a>
     </body>
 </html>
 
