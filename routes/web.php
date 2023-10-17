@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('menu.welcome');
 });
 
 Route::get('/dashboard', function () {
@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::controller(UserProfileController::class)->group(function(){
+Route::middleware('auth')->controller(UserProfileController::class)->group(function(){
     Route::get('/top', 'top')-> name('top');    //RouteServiceProviderに直接ルートを書いているので変更時は当該ファイルも要確認
     Route::get('/user/create', 'create') -> name('user_create');
     Route::post('/user/create/store', 'store') ->name('user_store');
@@ -47,7 +47,7 @@ Route::controller(UserProfileController::class)->group(function(){
     Route::put('/user/{user}/scout/{scout}/approve', 'scoutapprove')->name('scout_approve');
 });
 
-Route::controller(BandProfileController::class)->group(function(){
+Route::middleware('auth')->controller(BandProfileController::class)->group(function(){
     Route::get('/band/create', 'create')->name('band_create');
     Route::post('/band/create/userinst', 'getuserinst')->name('getuserinst');
     Route::post('/band/create/store', 'store')->name('bandstore');
@@ -59,7 +59,7 @@ Route::controller(BandProfileController::class)->group(function(){
     Route::put('/band/{band}/app/{user}/approval', 'approval')->name('app_approval');
 });
 
-Route::controller(RecruitmentController::class)->group(function(){
+Route::middleware('auth')->controller(RecruitmentController::class)->group(function(){
     Route::get('/band/{band}/recruitment/create', 'create')->name('recruitmentcreate');
     ROute::post('/band/{band}/recruitment/create/store', 'store')->name('recruitmentstore');
     Route::get('/recruitment/list', 'Recruitlist')->name('recruitment_list');
@@ -68,7 +68,7 @@ Route::controller(RecruitmentController::class)->group(function(){
     Route::delete('/recruitment/{recruit}/delete', 'delete')->name('recruitdelete');
 });
 
-Route::controller(ScoutController::class)->group(function () {
+Route::middleware('auth')->controller(ScoutController::class)->group(function () {
     Route::get('/band/{band}/scout/select', 'select')->name('scout_userselect');
     Route::get('/band/{band}/scout/select/re', 'reload')->name('scout_userselect_reload');
     Route::get('/band/{band}/scout/{user}', 'detail')->name('scout_userdetail');
