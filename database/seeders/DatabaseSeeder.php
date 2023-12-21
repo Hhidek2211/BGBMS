@@ -18,8 +18,7 @@ class DatabaseSeeder extends Seeder
             InstrumentSeeder::class,
             UserSeeder::class,
             UserProfileSeeder::class,
-            BandProfileSeeder::class,
-            
+            //BandProfileSeeder::class,
             ]);
     }
 }

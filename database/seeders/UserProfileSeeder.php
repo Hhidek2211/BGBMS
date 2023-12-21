@@ -48,6 +48,8 @@ class UserProfileSeeder extends Seeder
         */
         
         //$band =  BandProfile::factory(10)-> create();
-        UserProfile::factory(9)-> create();
+        
+        // 開発環境用 テストユーザーデータ
+        //UserProfile::factory(9)-> create();
     }
 }
