@@ -20,7 +20,10 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                    <div id="title" class="text-center">
+                        <div class="text-7xl text-white w-fit px-8 py-3 mx-auto rounded-full bg-blue-400">BGBMS</div>
+                        <div class="text-xl text-blue-400">BlueGrass Band Matching Service</div>
+                    </div>
                 </a>
             </div>
 
