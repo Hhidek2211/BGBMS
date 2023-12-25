@@ -18,14 +18,41 @@ class UserProfileSeeder extends Seeder
      */
     public function run()
     {
+        // 自分
         DB::table('user_profiles')->insert([
                 'name' => '早瀬英和',
                 'grade' => '3',
-                'introduction' => 'テストなうです',
+                'introduction' => 'よろしくお願いします',
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
                 'user_id' => '1',
             ]);
+        $insts = [1, 2, 3];
+        foreach ($insts as $inst) {
+                DB::table('instrument_user_profile')->insert([
+                'instrument_id' => $inst,
+                'user_profile_id' => '1'
+            ]);
+        }
+            
+        // テストユーザー
+        DB::table('user_profiles')->insert([
+                'name' => 'テストユーザー',
+                'grade' => '1',
+                'introduction' => 'テスト用ユーザー',
+                'created_at' => new DateTime(),
+                'updated_at' => new DateTime(),
+                'user_id' => '2',
+            ]);        
+        $insts = [1, 2, 3, 4, 5, 6];
+        foreach ($insts as $inst) {
+                DB::table('instrument_user_profile')->insert([
+                'instrument_id' => $inst,
+                'user_profile_id' => '2'
+            ]);
+        }
+            
+        
         
         /*
         DB::table('user_profiles')->insert([
