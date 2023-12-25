@@ -16,7 +16,8 @@ class InstrumentSeeder extends Seeder
      */
     public function run()
     {
-
+        
+        // 必ず必要なデータにつき注意
         DB::table('instruments')->insert([
             'name' =>'Banjo',
             'name_abb'=>'Bj',

@@ -35,6 +35,8 @@ class BandProfileSeeder extends Seeder
         
         //$user = UserProfile::all();
         
+        
+        /* 開発用 テストデータ　ユーザーとのリレーション付き
         $user = UserProfile::all();
         BandProfile::factory(10)-> create()
         -> each(function (BandProfile $band) use ($user) {
@@ -44,5 +46,6 @@ class BandProfileSeeder extends Seeder
                $user-> random($ran)-> pluck('id')-> toArray(),
                );
            });
+        */
     }
 }

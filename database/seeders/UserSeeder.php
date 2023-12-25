@@ -20,10 +20,20 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // 自分
         DB::table('users')->insert([
             'name' => 'manager',
             'email' => 'devhhide1011@gmail.com',
             'password' => Hash::make('ma2211me'),
+            'created_at' => new DateTime(),
+            'updated_at' => new DateTime(),
+        ]);
+        
+        // テストユーザー
+        DB::table('users')->insert([
+            'name' => 'test',
+            'email' => 'test@test.com',
+            'password' => Hash::make('test1234'),
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
